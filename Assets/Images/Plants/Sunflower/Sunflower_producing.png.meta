@@ -1,0 +1,273 @@
+fileFormatVersion: 2
+guid: 9678eb6f0940d2e4d8c94a718f4f4bfd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8821830358064538659
+    second: Sunflower_producing_0
+  - first:
+      213: -3187082168538078059
+    second: Sunflower_producing_1
+  - first:
+      213: 1638173934144587830
+    second: Sunflower_producing_2
+  - first:
+      213: 4511993627913139283
+    second: Sunflower_producing_3
+  - first:
+      213: -2086779743485713382
+    second: Sunflower_producing_4
+  - first:
+      213: 7823176126641181305
+    second: Sunflower_producing_5
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sunflower_producing_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 27
+        height: 28
+      alignment: 9
+      pivot: {x: 0.54349047, y: 0.50465965}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddb5ec68700929580800000000000000
+      internalID: -8821830358064538659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sunflower_producing_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 2
+        width: 27
+        height: 28
+      alignment: 9
+      pivot: {x: 0.44684517, y: 0.5186387}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5946e4257a535c3d0800000000000000
+      internalID: -3187082168538078059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sunflower_producing_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 2
+        width: 27
+        height: 30
+      alignment: 9
+      pivot: {x: 0.45650962, y: 0.49999994}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6380ef08386fbb610800000000000000
+      internalID: 1638173934144587830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sunflower_producing_3
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 2
+        width: 27
+        height: 30
+      alignment: 9
+      pivot: {x: 0.4323482, y: 0.49999994}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 354b69c8c42dd9e30800000000000000
+      internalID: 4511993627913139283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sunflower_producing_4
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 2
+        width: 28
+        height: 28
+      alignment: 9
+      pivot: {x: 0.44874355, y: 0.49999994}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a14ad0921e44a03e0800000000000000
+      internalID: -2086779743485713382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sunflower_producing_5
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 2
+        width: 28
+        height: 27
+      alignment: 9
+      pivot: {x: 0.45340294, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97293cbfc31819c60800000000000000
+      internalID: 7823176126641181305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Sunflower_producing_0: -8821830358064538659
+      Sunflower_producing_1: -3187082168538078059
+      Sunflower_producing_2: 1638173934144587830
+      Sunflower_producing_3: 4511993627913139283
+      Sunflower_producing_4: -2086779743485713382
+      Sunflower_producing_5: 7823176126641181305
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,1287 @@
+fileFormatVersion: 2
+guid: dce0aec64bd02214da9c87b3f73cf4e8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 935059208853562377
+    second: Frontyard_slot_0
+  - first:
+      213: -7914119720369087122
+    second: Frontyard_slot_1
+  - first:
+      213: 3823058187593516384
+    second: Frontyard_slot_2
+  - first:
+      213: -2372256705674645907
+    second: Frontyard_slot_3
+  - first:
+      213: -3268184159738306115
+    second: Frontyard_slot_4
+  - first:
+      213: -7349426812175696074
+    second: Frontyard_slot_5
+  - first:
+      213: 439291293239658085
+    second: Frontyard_slot_6
+  - first:
+      213: -2066035276111292588
+    second: Frontyard_slot_7
+  - first:
+      213: 7233406463688183204
+    second: Frontyard_slot_8
+  - first:
+      213: 3044167304646205575
+    second: Frontyard_slot_9
+  - first:
+      213: -1332107835293215957
+    second: Frontyard_slot_10
+  - first:
+      213: 2930207405981074983
+    second: Frontyard_slot_11
+  - first:
+      213: -2743538847340836123
+    second: Frontyard_slot_12
+  - first:
+      213: 6046223559036199855
+    second: Frontyard_slot_13
+  - first:
+      213: 6057344507175425210
+    second: Frontyard_slot_14
+  - first:
+      213: -8364114540154968382
+    second: Frontyard_slot_15
+  - first:
+      213: -4222553002390513971
+    second: Frontyard_slot_16
+  - first:
+      213: -4927723964702483310
+    second: Frontyard_slot_17
+  - first:
+      213: 6738244439891324095
+    second: Frontyard_slot_18
+  - first:
+      213: 4292052700507010130
+    second: Frontyard_slot_19
+  - first:
+      213: -4442123585767244606
+    second: Frontyard_slot_20
+  - first:
+      213: -3279990443195645476
+    second: Frontyard_slot_21
+  - first:
+      213: 8161134455480633424
+    second: Frontyard_slot_22
+  - first:
+      213: -3087029846380982592
+    second: Frontyard_slot_23
+  - first:
+      213: -4924500002225088631
+    second: Frontyard_slot_24
+  - first:
+      213: 6967144748414090543
+    second: Frontyard_slot_25
+  - first:
+      213: -4340748183030642921
+    second: Frontyard_slot_26
+  - first:
+      213: -1446669883536147212
+    second: Frontyard_slot_27
+  - first:
+      213: 7756537843148210688
+    second: Frontyard_slot_28
+  - first:
+      213: -5698062063396291614
+    second: Frontyard_slot_29
+  - first:
+      213: 8713786009943452179
+    second: Frontyard_slot_30
+  - first:
+      213: -3326929076972561167
+    second: Frontyard_slot_31
+  - first:
+      213: 3189034862985349798
+    second: Frontyard_slot_32
+  - first:
+      213: 3954052679208373659
+    second: Frontyard_slot_33
+  - first:
+      213: -3580689832352709777
+    second: Frontyard_slot_34
+  - first:
+      213: 8022134692766963880
+    second: Frontyard_slot_35
+  - first:
+      213: -7157959447407394974
+    second: Frontyard_slot_36
+  - first:
+      213: -2144078842848513849
+    second: Frontyard_slot_37
+  - first:
+      213: -3837703325450537321
+    second: Frontyard_slot_38
+  - first:
+      213: -6579463007188128369
+    second: Frontyard_slot_39
+  - first:
+      213: -2231076728812937000
+    second: Frontyard_slot_40
+  - first:
+      213: -7039114377389386749
+    second: Frontyard_slot_41
+  - first:
+      213: -3058379975939581652
+    second: Frontyard_slot_42
+  - first:
+      213: 3697757176327340946
+    second: Frontyard_slot_43
+  - first:
+      213: 4769398590705975296
+    second: Frontyard_slot_44
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Frontyard_slot_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 332.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 904aca3756ff9fc00800000000000000
+      internalID: 935059208853562377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_1
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 332.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6d9c7d8b066b2290800000000000000
+      internalID: -7914119720369087122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_2
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 332.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 065092b8a2b3e0530800000000000000
+      internalID: 3823058187593516384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_3
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 332.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6e693e481d041fd0800000000000000
+      internalID: -2372256705674645907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_4
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 332.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db16d3282d315a2d0800000000000000
+      internalID: -3268184159738306115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_5
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 332.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63f3985d047910a90800000000000000
+      internalID: -7349426812175696074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_6
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 332.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 566c87e8a1da81600800000000000000
+      internalID: 439291293239658085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_7
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 332.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 457d5f9dcd7f353e0800000000000000
+      internalID: -2066035276111292588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_8
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 332.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ad0620cad8326460800000000000000
+      internalID: 7233406463688183204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 249.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 780ab4ee80e0f3a20800000000000000
+      internalID: 3044167304646205575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_10
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 249.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2355da4bf6638de0800000000000000
+      internalID: -1332107835293215957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_11
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 249.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72688bf5c103aa820800000000000000
+      internalID: 2930207405981074983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_12
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 249.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eac3c844fdfce9d0800000000000000
+      internalID: -2743538847340836123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_13
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 249.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa363fcea4088e350800000000000000
+      internalID: 6046223559036199855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_14
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 249.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab4da507cb2001450800000000000000
+      internalID: 6057344507175425210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_15
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 249.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c622650422bceb80800000000000000
+      internalID: -8364114540154968382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_16
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 249.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc611479a6a7665c0800000000000000
+      internalID: -4222553002390513971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_17
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 249.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29c9abc89253d9bb0800000000000000
+      internalID: -4927723964702483310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 166.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc29790e9d038d50800000000000000
+      internalID: 6738244439891324095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_19
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 166.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 254f9fad03f609b30800000000000000
+      internalID: 4292052700507010130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_20
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 166.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cc75f552286a52c0800000000000000
+      internalID: -4442123585767244606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_21
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 166.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd1c5aee1122b72d0800000000000000
+      internalID: -3279990443195645476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_22
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 166.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 058cf173c8c224170800000000000000
+      internalID: 8161134455480633424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_23
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 166.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cece63e5baa825d0800000000000000
+      internalID: -3087029846380982592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_24
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 166.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98796fec659a8abb0800000000000000
+      internalID: -4924500002225088631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_25
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 166.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2d33f33c3540b060800000000000000
+      internalID: 6967144748414090543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_26
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 166.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 717490b968092c3c0800000000000000
+      internalID: -4340748183030642921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 83.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fc729cd7656cebe0800000000000000
+      internalID: -1446669883536147212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_28
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 83.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00249bb8212c4ab60800000000000000
+      internalID: 7756537843148210688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_29
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 83.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eb72233eba6ce0b0800000000000000
+      internalID: -5698062063396291614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_30
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 83.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31aa27b55369de870800000000000000
+      internalID: 8713786009943452179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_31
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 83.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fcd12e91af54d1d0800000000000000
+      internalID: -3326929076972561167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_32
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 83.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aa0498cf4ab14c20800000000000000
+      internalID: 3189034862985349798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_33
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 83.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9d856756fd9fd630800000000000000
+      internalID: 3954052679208373659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_34
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 83.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6383cb9195de4ec0800000000000000
+      internalID: -3580689832352709777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_35
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 83.8
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a856befff8545f60800000000000000
+      internalID: 8022134692766963880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.80000305
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26f71ac9ec1d9ac90800000000000000
+      internalID: -7157959447407394974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_37
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 0.80000305
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c07599f6a3be32e0800000000000000
+      internalID: -2144078842848513849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_38
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0.80000305
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7967f25982dbdbac0800000000000000
+      internalID: -3837703325450537321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_39
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 0.80000305
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8d6ab3214d01b4a0800000000000000
+      internalID: -6579463007188128369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_40
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 0.80000305
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d0e670398f9901e0800000000000000
+      internalID: -2231076728812937000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_41
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 0.80000305
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3045c52c4ca005e90800000000000000
+      internalID: -7039114377389386749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_42
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 0.80000305
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2914f9ad937e85d0800000000000000
+      internalID: -3058379975939581652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_43
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 0.80000305
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29384a07f82115330800000000000000
+      internalID: 3697757176327340946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frontyard_slot_44
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 0.80000305
+        width: 69.333336
+        height: 83.2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0004747bfbe403240800000000000000
+      internalID: 4769398590705975296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Frontyard_slot_0: 935059208853562377
+      Frontyard_slot_1: -7914119720369087122
+      Frontyard_slot_10: -1332107835293215957
+      Frontyard_slot_11: 2930207405981074983
+      Frontyard_slot_12: -2743538847340836123
+      Frontyard_slot_13: 6046223559036199855
+      Frontyard_slot_14: 6057344507175425210
+      Frontyard_slot_15: -8364114540154968382
+      Frontyard_slot_16: -4222553002390513971
+      Frontyard_slot_17: -4927723964702483310
+      Frontyard_slot_18: 6738244439891324095
+      Frontyard_slot_19: 4292052700507010130
+      Frontyard_slot_2: 3823058187593516384
+      Frontyard_slot_20: -4442123585767244606
+      Frontyard_slot_21: -3279990443195645476
+      Frontyard_slot_22: 8161134455480633424
+      Frontyard_slot_23: -3087029846380982592
+      Frontyard_slot_24: -4924500002225088631
+      Frontyard_slot_25: 6967144748414090543
+      Frontyard_slot_26: -4340748183030642921
+      Frontyard_slot_27: -1446669883536147212
+      Frontyard_slot_28: 7756537843148210688
+      Frontyard_slot_29: -5698062063396291614
+      Frontyard_slot_3: -2372256705674645907
+      Frontyard_slot_30: 8713786009943452179
+      Frontyard_slot_31: -3326929076972561167
+      Frontyard_slot_32: 3189034862985349798
+      Frontyard_slot_33: 3954052679208373659
+      Frontyard_slot_34: -3580689832352709777
+      Frontyard_slot_35: 8022134692766963880
+      Frontyard_slot_36: -7157959447407394974
+      Frontyard_slot_37: -2144078842848513849
+      Frontyard_slot_38: -3837703325450537321
+      Frontyard_slot_39: -6579463007188128369
+      Frontyard_slot_4: -3268184159738306115
+      Frontyard_slot_40: -2231076728812937000
+      Frontyard_slot_41: -7039114377389386749
+      Frontyard_slot_42: -3058379975939581652
+      Frontyard_slot_43: 3697757176327340946
+      Frontyard_slot_44: 4769398590705975296
+      Frontyard_slot_5: -7349426812175696074
+      Frontyard_slot_6: 439291293239658085
+      Frontyard_slot_7: -2066035276111292588
+      Frontyard_slot_8: 7233406463688183204
+      Frontyard_slot_9: 3044167304646205575
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

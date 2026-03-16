@@ -1,0 +1,97 @@
+using UnityEngine;
+
+public class FieldSlot : MonoBehaviour
+{
+    private GameObject highlight;
+    private PlantSlots plantSlots;
+    private bool occupied = false;
+
+    private GameManager gameManager;
+
+    void Start()
+    {
+        highlight = transform.Find("Highlight").gameObject;
+        highlight.SetActive(false);
+
+        plantSlots = FindAnyObjectByType<PlantSlots>();
+        gameManager = FindAnyObjectByType<GameManager>();
+    }
+
+    void OnMouseEnter()
+    {
+        if (!occupied)
+        {
+            highlight.SetActive(true);
+        }
+    }
+
+    void OnMouseExit()
+    {
+        highlight.SetActive(false);
+    }
+
+    void Update()
+    {
+        HandleClick();
+    }
+
+    void HandleClick()
+    {
+        if (!Input.GetMouseButtonDown(0)) return;
+
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Collider2D[] hits = Physics2D.OverlapPointAll(mousePos);
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.gameObject == gameObject)
+            {
+                TryPlant();
+                break;
+            }
+        }
+    }
+
+    void TryPlant()
+    {
+        plantSlots.DisableFollowImage();
+
+        if (plantSlots.selectedPlant == null)
+            return;
+
+        if (!occupied)
+        {
+            float plantCost = plantSlots.GetSelectedPlantCost();
+
+            GameObject plant = Instantiate(
+                plantSlots.selectedPlant,
+                transform.position,
+                Quaternion.identity,
+                transform
+            );
+
+            plant.transform.localPosition = Vector3.zero;
+            Plant plantScript = plant.GetComponent<Plant>();
+            plantScript.SetFieldSlot(this);
+            occupied = true;
+            plantSlots.selectedPlant = null;
+
+            gameManager.UpdateSunAmount(-plantCost);
+
+            highlight.SetActive(false);
+
+            SoundManager.instance.PlaySound(SoundManager.instance.plantPlace);
+        }
+        else
+        {
+            Debug.Log("This slot is already occupied.");
+            plantSlots.selectedPlant = null;
+        }
+    }
+
+    public void SetOccupied(bool status)
+    {
+        occupied = status;
+    }
+}
