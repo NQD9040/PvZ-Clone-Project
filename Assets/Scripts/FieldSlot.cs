@@ -7,7 +7,8 @@ public class FieldSlot : MonoBehaviour
     private bool occupied = false;
 
     private GameManager gameManager;
-
+    private Shovel shovel;
+    private Plant activePlant;
     void Start()
     {
         highlight = transform.Find("Highlight").gameObject;
@@ -15,6 +16,7 @@ public class FieldSlot : MonoBehaviour
 
         plantSlots = FindAnyObjectByType<PlantSlots>();
         gameManager = FindAnyObjectByType<GameManager>();
+        shovel = FindAnyObjectByType<Shovel>();
     }
 
     void OnMouseEnter()
@@ -40,19 +42,39 @@ public class FieldSlot : MonoBehaviour
         if (!Input.GetMouseButtonDown(0)) return;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         Collider2D[] hits = Physics2D.OverlapPointAll(mousePos);
 
         foreach (Collider2D hit in hits)
         {
             if (hit.gameObject == gameObject)
             {
-                TryPlant();
+                if (shovel != null && shovel.IsShovelActive())
+                {
+                    TryRemovePlant();
+                }
+                else
+                {
+                    TryPlant();
+                }
                 break;
             }
         }
     }
+    void TryRemovePlant()
+    {
+        if (!occupied) return;
 
+        Transform plant = transform.GetChild(0);
+
+        if (plant != null)
+        {
+            activePlant.Die(false);
+            activePlant = null;
+
+            SoundManager.instance.PlaySound(SoundManager.instance.removePlant);
+            shovel.DeactivateShovel();
+        }
+    }
     void TryPlant()
     {
         plantSlots.DisableFollowImage();
@@ -73,6 +95,7 @@ public class FieldSlot : MonoBehaviour
 
             plant.transform.localPosition = Vector3.zero;
             Plant plantScript = plant.GetComponent<Plant>();
+            activePlant = plantScript;
             plantScript.SetFieldSlot(this);
             occupied = true;
             plantSlots.selectedPlant = null;

@@ -18,6 +18,12 @@ public class SoundManager : MonoBehaviour
     public AudioClip canNotPick;
     public AudioClip zombieEat;
     public AudioClip zombieGulp;
+    public AudioClip potatoMineActivate;
+    public AudioClip cherryBombActivate;
+    public AudioClip snowEffect;
+    public AudioClip slowDownEffect;
+    public AudioClip pickupShovel;
+    public AudioClip removePlant;
     [Header("BGM")]
     public AudioSource musicSource;
     public AudioClip bgMusic;

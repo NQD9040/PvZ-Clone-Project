@@ -109,7 +109,7 @@ MonoBehaviour:
   cost: 100
   maxHealth: 200
   health: 200
-  cooldownTime: 0
+  cooldownTime: 7.5
   projectilePrefab: {fileID: 316419434821415339, guid: 94691f6d61a061d4b8d72532446c9454, type: 3}
   fireRate: 0.5
   fireRange: 14

@@ -133,7 +133,7 @@ MonoBehaviour:
   health: 0
   dmgDealt: 20
   dmgRate: 0.5
-  moveSpeed: 0.3
+  moveSpeed: 0.25
 --- !u!61 &7387480515882707713
 BoxCollider2D:
   m_ObjectHideFlags: 0

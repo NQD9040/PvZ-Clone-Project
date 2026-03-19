@@ -4,47 +4,68 @@ using UnityEngine;
 public class ProjectilePool : MonoBehaviour
 {
     public static ProjectilePool Instance;
-    public GameObject peaPrefab;
-    public int poolSize = 20;
-    private Queue<GameObject> peaPool = new Queue<GameObject>();
+
+    [System.Serializable]
+    public class ProjectileData
+    {
+        public string name;
+        public GameObject prefab;
+        [HideInInspector] public Queue<GameObject> pool = new Queue<GameObject>();
+    }
+
+    public List<ProjectileData> projectiles = new List<ProjectileData>();
+    public int initialPoolSize = 10;
 
     void Awake()
     {
         Instance = this;
     }
+
     void Start()
     {
-        for (int i = 0; i < poolSize; i++)
+        foreach (var p in projectiles)
         {
-            GameObject obj = Instantiate(peaPrefab);
-            obj.SetActive(false);
-            peaPool.Enqueue(obj);
+            if (p.prefab == null) continue; // skip nếu chưa gán prefab
+
+            for (int i = 0; i < initialPoolSize; i++)
+            {
+                GameObject obj = Instantiate(p.prefab);
+                obj.SetActive(false);
+                p.pool.Enqueue(obj);
+            }
         }
     }
-    public GameObject GetProjectile(Vector2 pos)
+
+    public GameObject GetProjectile(string name, Vector2 pos)
     {
+        ProjectileData pData = projectiles.Find(p => p.name == name);
+        if (pData == null || pData.prefab == null)
+        {
+            Debug.LogWarning("Projectile prefab not found for " + name);
+            return null;
+        }
 
         GameObject obj;
-
-        if (peaPool.Count > 0)
+        if (pData.pool.Count > 0)
         {
-            obj = peaPool.Dequeue();
+            obj = pData.pool.Dequeue();
         }
         else
         {
-            obj = Instantiate(peaPrefab);
+            obj = Instantiate(pData.prefab);
         }
 
         obj.transform.position = pos;
         obj.SetActive(true);
-
         return obj;
     }
 
-    public void ReturnResource(GameObject obj)
+    public void ReturnResource(GameObject obj, string name)
     {
-        obj.SetActive(false);
+        ProjectileData pData = projectiles.Find(p => p.name == name);
+        if (pData == null) return;
 
-        peaPool.Enqueue(obj);
+        obj.SetActive(false);
+        pData.pool.Enqueue(obj);
     }
 }

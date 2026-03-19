@@ -14,7 +14,7 @@ public class Zombie : MonoBehaviour
 
     private Plant targetPlant;
     private float attackTimer;
-
+    private bool isSlowedCoroutineRunning = false;
     void Start()
     {
         health = maxHealth;
@@ -57,7 +57,7 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float dmgTaken)
+    public void TakeDamage(float dmgTaken, bool isSlowed = false)
     {
         health -= dmgTaken;
 
@@ -65,8 +65,28 @@ public class Zombie : MonoBehaviour
         {
             Die();
         }
+
+        if (isSlowed && !isSlowedCoroutineRunning)
+        {
+            StartCoroutine(SlowDown());
+        }
     }
 
+    private System.Collections.IEnumerator SlowDown()
+    {
+        isSlowedCoroutineRunning = true;
+
+        float originalSpeed = moveSpeed;
+        moveSpeed *= 0.5f;
+        SoundManager.instance.PlaySound(SoundManager.instance.snowEffect);
+        SoundManager.instance.PlaySound(SoundManager.instance.slowDownEffect);
+        yield return new WaitForSeconds(5f);
+
+        moveSpeed = originalSpeed;
+        
+
+        isSlowedCoroutineRunning = false;
+    }
     void Die()
     {
         Destroy(gameObject);

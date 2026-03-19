@@ -15,6 +15,7 @@ public class StraightProjectile : MonoBehaviour
         CastusBullet,
         puffShroomBullet // use for puff-shroom and scaredy-shroom
     }
+    public ProjectileType projectileType;
     void Start()
     {
         // Start
@@ -37,7 +38,7 @@ public class StraightProjectile : MonoBehaviour
 
         if (lifeTimer >= lifeTime)
         {
-            ProjectilePool.Instance.ReturnResource(gameObject);
+            ProjectilePool.Instance.ReturnResource(gameObject, projectileType.ToString());
         }
     }
 
@@ -48,11 +49,19 @@ public class StraightProjectile : MonoBehaviour
         {
             hasHit = true;
             Zombie zombie = collision.GetComponent<Zombie>();
-            zombie.TakeDamage(damage);
+
+            if (projectileType == ProjectileType.SnowPea)
+            {
+                zombie.TakeDamage(damage, true); // Apply damage and slow effect
+            }
+            else
+            {
+                zombie.TakeDamage(damage);
+            }
 
             SoundManager.instance.PlaySound(SoundManager.instance.normalHit);
 
-            ProjectilePool.Instance.ReturnResource(gameObject);
+            ProjectilePool.Instance.ReturnResource(gameObject, projectileType.ToString());
         }
     }
 }

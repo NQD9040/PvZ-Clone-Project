@@ -109,7 +109,7 @@ MonoBehaviour:
   cost: 50
   maxHealth: 200
   health: 200
-  cooldownTime: 0
+  cooldownTime: 7.5
   produceRate: 10
   doubleProduceChance: 10
 --- !u!95 &50168980000198389

@@ -56,7 +56,10 @@ public class ShooterPlant : Plant
         pos.x += shootPoint.x;
         pos.y += shootPoint.y;
 
-        GameObject proj = ProjectilePool.Instance.GetProjectile(pos);
+        GameObject proj = ProjectilePool.Instance.GetProjectile(
+            projectilePrefab.GetComponent<StraightProjectile>().projectileType.ToString(),
+            pos
+        );
 
         StraightProjectile pea = proj.GetComponent<StraightProjectile>();
         pea.damage = dmgDealt;
@@ -67,5 +70,9 @@ public class ShooterPlant : Plant
     public void EndShoot()
     {
         animator.SetBool("isShoot", false);
+    }
+    void SnowPeaShoot()
+    {
+        SoundManager.instance.PlaySound(SoundManager.instance.snowEffect);
     }
 }

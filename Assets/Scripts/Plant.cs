@@ -19,9 +19,12 @@ public class Plant : MonoBehaviour
 
         if (health <= 0) Die();
     }
-    void Die()
+    public void Die(bool playSound = true)
     {
-        SoundManager.instance.PlaySound(SoundManager.instance.zombieGulp);
+        if (playSound)
+        {
+            SoundManager.instance.PlaySound(SoundManager.instance.zombieGulp);
+        }
         Destroy(gameObject);
         if (fieldSlot != null)
         {
