@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Plant : MonoBehaviour
@@ -39,5 +40,9 @@ public class Plant : MonoBehaviour
     {
         fieldSlot = slot;
         Debug.Log("Field slot set for plant at " + fieldSlot.name);
+    }
+    public float GetCooldownTime()
+    {
+        return cooldownTime;
     }
 }

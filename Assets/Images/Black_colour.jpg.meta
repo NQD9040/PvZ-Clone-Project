@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 70471bae79edc7a408d334edac4aef98
+guid: 84117741c1d677a4ea28a7b6b30819fa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2546837735107004302
-    second: Peashooter1_shoot_0
-  - first:
-      213: 7041258741227931858
-    second: Peashooter1_shoot_1
-  - first:
-      213: -4315778756570842026
-    second: Peashooter1_shoot_2
+      213: 2900045581552041026
+    second: Black_colour_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -74,7 +68,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -106,67 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Peashooter1_shoot_0
+      name: Black_colour_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 26
-        height: 31
-      alignment: 9
-      pivot: {x: 0.5476973, y: 0.5}
+        x: 0
+        y: 0
+        width: 500
+        height: 667
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 278f26ad290d7acd0800000000000000
-      internalID: -2546837735107004302
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Peashooter1_shoot_1
-      rect:
-        serializedVersion: 2
-        x: 29
-        y: 1
-        width: 24
-        height: 31
-      alignment: 9
-      pivot: {x: 0.53446466, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d8418ad48397b160800000000000000
-      internalID: 7041258741227931858
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Peashooter1_shoot_2
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 1
-        width: 27
-        height: 31
-      alignment: 9
-      pivot: {x: 0.48481497, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 65cfa6d36164b14c0800000000000000
-      internalID: -4315778756570842026
+      spriteID: 24cb9d067180f3820800000000000000
+      internalID: 2900045581552041026
       vertices: []
       indices: 
       edges: []
@@ -175,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -185,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Peashooter1_shoot_0: -2546837735107004302
-      Peashooter1_shoot_1: 7041258741227931858
-      Peashooter1_shoot_2: -4315778756570842026
+      Black_colour_0: 2900045581552041026
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

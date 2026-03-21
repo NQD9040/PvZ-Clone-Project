@@ -24,6 +24,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip slowDownEffect;
     public AudioClip pickupShovel;
     public AudioClip removePlant;
+    public AudioClip chomperEat;
     [Header("BGM")]
     public AudioSource musicSource;
     public AudioClip bgMusic;

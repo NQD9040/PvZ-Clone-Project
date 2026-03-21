@@ -6,6 +6,7 @@ public class PlantSlots : MonoBehaviour
     public GameObject plantslot;
     public GameObject[] slot;
     public GameObject selectedPlant;
+    public GameObject selectedPlantCard;
     public Image plantFollowImage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,7 +21,7 @@ public class PlantSlots : MonoBehaviour
         }
         plantFollowImage.gameObject.SetActive(false);
     }
-    public void GetSelectedPlant(GameObject plant)
+    public void GetSelectedPlant(GameObject plant, GameObject plantCard)
     {
         if (plant != null)
         {
@@ -34,6 +35,7 @@ public class PlantSlots : MonoBehaviour
                 return;
             }
             selectedPlant = plant;
+            selectedPlantCard = plantCard;
             SoundManager.instance.PlaySound(SoundManager.instance.plantPick);
             Debug.Log("Selected " + plant.name);
         }

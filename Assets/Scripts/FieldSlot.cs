@@ -103,7 +103,7 @@ public class FieldSlot : MonoBehaviour
             gameManager.UpdateSunAmount(-plantCost);
 
             highlight.SetActive(false);
-
+            plantSlots.selectedPlantCard.GetComponent<PlantCard>().StartCooldown();
             SoundManager.instance.PlaySound(SoundManager.instance.plantPlace);
         }
         else

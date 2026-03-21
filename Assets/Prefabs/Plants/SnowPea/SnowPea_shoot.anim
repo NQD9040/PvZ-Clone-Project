@@ -22,9 +22,9 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: -5304128747234401237, guid: bc97e2981463b3f4db93c6168fcca9df, type: 3}
-    - time: 0.16666667
+    - time: 0.083333336
       value: {fileID: 729193949, guid: bc97e2981463b3f4db93c6168fcca9df, type: 3}
-    - time: 0.33333334
+    - time: 0.25
       value: {fileID: 431758833, guid: bc97e2981463b3f4db93c6168fcca9df, type: 3}
     attribute: m_Sprite
     path: 
@@ -56,7 +56,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35000002
+    m_StopTime: 0.26666668
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -76,21 +76,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.33333334
+  - time: 0.25
     functionName: Shoot
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.33333334
+  - time: 0.25
     functionName: EndShoot
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.33333334
+  - time: 0.25
     functionName: SnowPeaShoot
     data: 
     objectReferenceParameter: {fileID: 0}

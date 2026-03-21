@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Zombie : MonoBehaviour
@@ -15,6 +16,8 @@ public class Zombie : MonoBehaviour
     private Plant targetPlant;
     private float attackTimer;
     private bool isSlowedCoroutineRunning = false;
+    private Coroutine slowCoroutine;
+    private bool isSlowed = false;
     void Start()
     {
         health = maxHealth;
@@ -57,7 +60,7 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float dmgTaken, bool isSlowed = false)
+    public void TakeDamage(float dmgTaken, bool isSlow = false)
     {
         health -= dmgTaken;
 
@@ -66,26 +69,40 @@ public class Zombie : MonoBehaviour
             Die();
         }
 
-        if (isSlowed && !isSlowedCoroutineRunning)
+        if (isSlow)
         {
-            StartCoroutine(SlowDown());
+            ApplySlow();
         }
     }
 
-    private System.Collections.IEnumerator SlowDown()
+    private void ApplySlow()
     {
-        isSlowedCoroutineRunning = true;
+        // Nếu chưa bị slow -> apply effect + play sound
+        if (!isSlowed)
+        {
+            isSlowed = true;
+            moveSpeed *= 0.5f;
 
-        float originalSpeed = moveSpeed;
-        moveSpeed *= 0.5f;
-        SoundManager.instance.PlaySound(SoundManager.instance.snowEffect);
-        SoundManager.instance.PlaySound(SoundManager.instance.slowDownEffect);
+            SoundManager.instance.PlaySound(SoundManager.instance.snowEffect);
+            SoundManager.instance.PlaySound(SoundManager.instance.slowDownEffect);
+        }
+
+        // Nếu đang có coroutine cũ -> stop để reset timer
+        if (slowCoroutine != null)
+        {
+            StopCoroutine(slowCoroutine);
+        }
+
+        slowCoroutine = StartCoroutine(SlowDown());
+    }
+
+    private IEnumerator SlowDown()
+    {
         yield return new WaitForSeconds(5f);
 
-        moveSpeed = originalSpeed;
-        
-
-        isSlowedCoroutineRunning = false;
+        // Hết slow
+        moveSpeed *= 2f;
+        isSlowed = false;
     }
     void Die()
     {

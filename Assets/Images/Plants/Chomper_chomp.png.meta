@@ -1,31 +1,10 @@
 fileFormatVersion: 2
-guid: d720ae6a2c7cdd14c84e1c9abca7b8c5
+guid: 0c842c00a3b643440a6fc1742a2011b7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1983692336043095844
-    second: Peashooter1_idle_0
-  - first:
-      213: 873068701475748442
-    second: Peashooter1_idle_1
-  - first:
-      213: -6575745534572912739
-    second: Peashooter1_idle_2
-  - first:
-      213: -1061941086861315685
-    second: Peashooter1_idle_3
-  - first:
-      213: -772712867912112427
-    second: Peashooter1_idle_4
-  - first:
-      213: -602042477416148600
-    second: Peashooter1_idle_5
-  - first:
-      213: -3477002529522843515
-    second: Peashooter1_idle_6
-  - first:
-      213: -8766297974577656527
-    second: Peashooter1_idle_7
+      213: 8322854819607780932
+    second: Chomper_chomp_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -89,7 +68,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -121,177 +100,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Peashooter1_idle_0
+      name: Chomper_chomp_0
       rect:
         serializedVersion: 2
         x: 3
-        y: 3
-        width: 26
-        height: 31
+        y: 2
+        width: 31
+        height: 50
       alignment: 9
-      pivot: {x: 0.54951006, y: 0.5}
+      pivot: {x: 0.47764742, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: cd88c7694528874e0800000000000000
-      internalID: -1983692336043095844
+      spriteID: 44e9edfac58b08370800000000000000
+      internalID: 8322854819607780932
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Peashooter1_idle_1
+      name: Chomper_chomp_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 3
-        width: 26
-        height: 31
+        x: 37
+        y: 2
+        width: 45
+        height: 50
       alignment: 9
-      pivot: {x: 0.52293926, y: 0.5}
+      pivot: {x: 0.3075191, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5a39f7bb53cd1c00800000000000000
-      internalID: 873068701475748442
+      spriteID: 0bb149533adaa644083ca82bff7db7f1
+      internalID: 365743540
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Peashooter1_idle_2
+      name: Chomper_chomp_2
       rect:
         serializedVersion: 2
-        x: 61
-        y: 3
-        width: 26
-        height: 31
+        x: 85
+        y: 2
+        width: 47
+        height: 50
       alignment: 9
-      pivot: {x: 0.44897667, y: 0.5}
+      pivot: {x: 0.29359502, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9f9b6ea6424eb4a0800000000000000
-      internalID: -6575745534572912739
+      spriteID: b103e8ea4323b0e4aa0acf51d38b00ed
+      internalID: -939718468
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Peashooter1_idle_3
+      name: Chomper_chomp_3
       rect:
         serializedVersion: 2
-        x: 90
-        y: 3
-        width: 26
-        height: 31
+        x: 136
+        y: 2
+        width: 39
+        height: 50
       alignment: 9
-      pivot: {x: 0.5210275, y: 0.5}
+      pivot: {x: 0.3519381, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b913d39353a3341f0800000000000000
-      internalID: -1061941086861315685
+      spriteID: 306f93de6fdbc6848b81e1ef5de27132
+      internalID: 1931177908
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Peashooter1_idle_4
+      name: Chomper_chomp_4
       rect:
         serializedVersion: 2
-        x: 119
-        y: 3
-        width: 26
-        height: 31
+        x: 178
+        y: 2
+        width: 34
+        height: 50
       alignment: 9
-      pivot: {x: 0.55272794, y: 0.5}
+      pivot: {x: 0.43206564, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d6a9ba9db5c645f0800000000000000
-      internalID: -772712867912112427
+      spriteID: d1dfb75f5088f48498ee429274eb49e4
+      internalID: -1929476538
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Peashooter1_idle_5
+      name: Chomper_chomp_5
       rect:
         serializedVersion: 2
-        x: 148
-        y: 3
-        width: 26
-        height: 31
+        x: 215
+        y: 2
+        width: 35
+        height: 50
       alignment: 9
-      pivot: {x: 0.5984157, y: 0.5}
+      pivot: {x: 0.44390565, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8811ae97e8d15a7f0800000000000000
-      internalID: -602042477416148600
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Peashooter1_idle_6
-      rect:
-        serializedVersion: 2
-        x: 177
-        y: 3
-        width: 26
-        height: 31
-      alignment: 9
-      pivot: {x: 0.59620136, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 58008a01f943fbfc0800000000000000
-      internalID: -3477002529522843515
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Peashooter1_idle_7
-      rect:
-        serializedVersion: 2
-        x: 206
-        y: 3
-        width: 26
-        height: 31
-      alignment: 9
-      pivot: {x: 0.6022392, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13d821e107ad75680800000000000000
-      internalID: -8766297974577656527
+      spriteID: a1c2d332f2be56542b3808f66f976c0d
+      internalID: -1483736807
       vertices: []
       indices: 
       edges: []
@@ -300,7 +235,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: d04805cfd291b5e4d9c8504f67a65aef
     internalID: 0
     vertices: []
     indices: 
@@ -308,16 +243,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":42.0,"y":55.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Peashooter1_idle_0: -1983692336043095844
-      Peashooter1_idle_1: 873068701475748442
-      Peashooter1_idle_2: -6575745534572912739
-      Peashooter1_idle_3: -1061941086861315685
-      Peashooter1_idle_4: -772712867912112427
-      Peashooter1_idle_5: -602042477416148600
-      Peashooter1_idle_6: -3477002529522843515
-      Peashooter1_idle_7: -8766297974577656527
+      Chomper_chomp_0: 8322854819607780932
+      Chomper_chomp_1: 365743540
+      Chomper_chomp_2: -939718468
+      Chomper_chomp_3: 1931177908
+      Chomper_chomp_4: -1929476538
+      Chomper_chomp_5: -1483736807
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
