@@ -25,10 +25,11 @@ public class SoundManager : MonoBehaviour
     public AudioClip pickupShovel;
     public AudioClip removePlant;
     public AudioClip chomperEat;
+    public AudioClip gameOverSound;
     [Header("BGM")]
     public AudioSource musicSource;
     public AudioClip bgMusic;
-
+    public AudioClip menuMusic;
     private Dictionary<AudioClip, float> lastPlayTime = new Dictionary<AudioClip, float>();
 
     public float soundCooldown = 0.05f; // 50ms
@@ -36,11 +37,37 @@ public class SoundManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        musicSource.clip = bgMusic;
-        musicSource.loop = true;
+    }
+    public void PlayMusic(AudioClip clip, bool loop = true)
+    {
+        if (clip == null) return;
+
+        if (musicSource.clip == clip && musicSource.isPlaying) return;
+
+        musicSource.clip = clip;
+        musicSource.loop = loop;
         musicSource.Play();
     }
 
+    public void StopMusic()
+    {
+        if (musicSource.isPlaying)
+            musicSource.Stop();
+    }
+
+    public void SetPause(bool pause)
+    {
+        if (pause)
+        {
+            if (musicSource.isPlaying)
+                musicSource.Pause();
+        }
+        else
+        {
+            if (!musicSource.isPlaying && musicSource.clip != null)
+                musicSource.UnPause();
+        }
+    }
     public void PlaySound(AudioClip clip)
     {
         if (clip == null) return;

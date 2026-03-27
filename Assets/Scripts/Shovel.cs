@@ -23,10 +23,15 @@ public class Shovel : MonoBehaviour
         mousePos.z = 0f;
 
         shovelFollowImage.transform.position = mousePos;
+        if (InputManager.Instance.isBlocked){
+            DeactivateShovel();
+        }
     }
 
     void OnMouseDown()
     {
+        if (InputManager.Instance.isBlocked)
+            return;
         ToggleShovel();
         SoundManager.instance.PlaySound(SoundManager.instance.pickupShovel);
     }

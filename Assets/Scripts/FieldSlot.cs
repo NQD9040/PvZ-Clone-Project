@@ -13,7 +13,10 @@ public class FieldSlot : MonoBehaviour
     {
         highlight = transform.Find("Highlight").gameObject;
         highlight.SetActive(false);
-
+        if (highlight == null)
+        {
+            Debug.LogError("Highlight object not found in FieldSlot " + gameObject.name);
+        }
         plantSlots = FindAnyObjectByType<PlantSlots>();
         gameManager = FindAnyObjectByType<GameManager>();
         shovel = FindAnyObjectByType<Shovel>();
@@ -21,15 +24,23 @@ public class FieldSlot : MonoBehaviour
 
     void OnMouseEnter()
     {
+        if (InputManager.Instance.isBlocked)
+            return;
         if (!occupied)
         {
-            highlight.SetActive(true);
+            if (highlight != null)
+            {
+                highlight.SetActive(true);
+            }
         }
     }
 
     void OnMouseExit()
     {
-        highlight.SetActive(false);
+        if (highlight != null)
+        {
+            highlight.SetActive(false);
+        }
     }
 
     void Update()
@@ -39,6 +50,8 @@ public class FieldSlot : MonoBehaviour
 
     void HandleClick()
     {
+        if (InputManager.Instance.isBlocked)
+            return;
         if (!Input.GetMouseButtonDown(0)) return;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

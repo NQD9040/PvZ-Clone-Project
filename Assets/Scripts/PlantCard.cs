@@ -87,6 +87,8 @@ public class PlantCard : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (InputManager.Instance.isBlocked)
+            return;
         Plant plant = plantPrefab.GetComponent<Plant>();
 
         bool isEnoughSun = gameManager.sumAmount >= plant.cost;

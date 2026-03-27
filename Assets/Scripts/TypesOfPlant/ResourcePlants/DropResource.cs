@@ -80,9 +80,10 @@ public class DropResource : MonoBehaviour
     {
         if (isMovingToTarget) return;
 
-        // nếu đã nhặt resource trong click này thì bỏ qua
         if (resourcePickedThisClick) return;
 
+        if (InputManager.Instance.isBlocked)
+            return;
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -15,13 +15,15 @@ public class Zombie : MonoBehaviour
 
     private Plant targetPlant;
     private float attackTimer;
-    private bool isSlowedCoroutineRunning = false;
     private Coroutine slowCoroutine;
     private bool isSlowed = false;
+    private float gameOverPositionX = -8f;
+    private GameManager gameManager;
     void Start()
     {
         health = maxHealth;
         animator = GetComponent<Animator>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void Update()
@@ -33,6 +35,10 @@ public class Zombie : MonoBehaviour
         else
         {
             Eat();
+        }
+        if (transform.position.x <= gameOverPositionX)
+        {
+            gameManager.EndGame();
         }
     }
 

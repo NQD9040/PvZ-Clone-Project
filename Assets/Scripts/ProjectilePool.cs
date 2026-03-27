@@ -25,7 +25,7 @@ public class ProjectilePool : MonoBehaviour
     {
         foreach (var p in projectiles)
         {
-            if (p.prefab == null) continue; // skip nếu chưa gán prefab
+            if (p.prefab == null) continue;
 
             for (int i = 0; i < initialPoolSize; i++)
             {
