@@ -32,11 +32,13 @@ public class LevelMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 mousePos = Input.mousePosition;
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = Mathf.Abs(Camera.main.transform.position.z);
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
         if (Input.GetMouseButtonDown(0))
         {
-            Collider2D[] cols = Physics2D.OverlapPointAll(mousePos);
+            Collider2D[] cols = Physics2D.OverlapPointAll(worldPos);
 
             foreach (Collider2D col in cols)
             {

@@ -10,6 +10,7 @@ public class ResourcePlant : Plant
     void Start ()
     {
         animator = GetComponent<Animator>();
+        timer += produceRate / 2f; // Start with half the produce time for quicker initial resource generation
     }
     void Update()
     {

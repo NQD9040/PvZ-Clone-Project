@@ -7,7 +7,6 @@ public class ChangeScene : MonoBehaviour
     void Awake()
     {
         Instance = this;
-
     }
     public void LoadScene(int sceneId)
     {

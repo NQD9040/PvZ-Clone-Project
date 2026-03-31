@@ -24,8 +24,10 @@ public class Menu : MonoBehaviour
 
     void HoverCheck()
     {
-        Vector2 mousePos = Input.mousePosition;
-        Collider2D col = Physics2D.OverlapPoint(mousePos);
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = Mathf.Abs(Camera.main.transform.position.z);
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Collider2D col = Physics2D.OverlapPoint(worldPos);
 
         if (col != null)
         {
@@ -60,8 +62,11 @@ public class Menu : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 mousePos = Input.mousePosition;
-            Collider2D col = Physics2D.OverlapPoint(mousePos);
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = Mathf.Abs(Camera.main.transform.position.z);
+
+            Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            Collider2D col = Physics2D.OverlapPoint(worldPos);
 
             if (col != null)
             {

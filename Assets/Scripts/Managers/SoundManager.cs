@@ -38,6 +38,10 @@ public class SoundManager : MonoBehaviour
     {
         instance = this;
     }
+    void Start()
+    {
+        UpdateVolume();
+    }
     public void PlayMusic(AudioClip clip, bool loop = true)
     {
         if (clip == null) return;
@@ -54,7 +58,22 @@ public class SoundManager : MonoBehaviour
         if (musicSource.isPlaying)
             musicSource.Stop();
     }
+    public void UpdateVolume()
+    {
+        if (Settings.Instance == null) return;
 
+        // Update volume for Music (BGM)
+        if (musicSource != null)
+        {
+            musicSource.volume = Settings.Instance.musicVolume;
+        }
+
+        // Update volume for SFX (Sound Effects)
+        if (audioSource != null)
+        {
+            audioSource.volume = Settings.Instance.sfxVolume;
+        }
+    }
     public void SetPause(bool pause)
     {
         if (pause)
