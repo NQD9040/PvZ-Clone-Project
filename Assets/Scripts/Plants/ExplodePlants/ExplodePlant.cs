@@ -3,40 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ExplodePlant : Plant
 {
-    public float radius = 3f;
-    public string typeOfExplode; //is like explode a square area or a straight line or anything else
-    public bool isActive; // instantly explode or taking some condition to explode like potato mine
-    public float dmgDealt = 2500; // default damage, can be changed
+    [Header("Explode Plant Data")]
+    ExplodePlantData explodePlantData;
     private Animator animator;
     void Start()
     {
         animator = GetComponent<Animator>();
-        if (isActive)
+        explodePlantData = (ExplodePlantData)data;
+        if (explodePlantData.isActive)
         {
             animator.SetTrigger("Explode");
         }
     }
     void Explode()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, explodePlantData.radius);
         health = 9999; // make sure the plant will die after exploding
         foreach(var hit in hits)
         {
             Zombie z = hit.GetComponent<Zombie>();
             if(z != null)
             {
-                z.TakeDamage(dmgDealt);
+                z.TakeDamage(explodePlantData.dmgDealt);
             }
         }
     }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(transform.position, explodePlantData.radius);
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isActive) return;
+        if (explodePlantData.isActive) return;
         if (collision.CompareTag("Zombie"))
         {
             Debug.Log("Explode plant triggered by zombie collision!");
@@ -54,5 +53,20 @@ public class ExplodePlant : Plant
     void DestroyPlant()
     {
         Die(false); // Don't play the sound again when destroying the plant
+    }
+    public void PotatoMineArm()
+    {
+        if (!explodePlantData.isActive)
+        {
+            animator.speed = 0;
+        }
+        StartCoroutine(ArmRoutine());
+    }
+    IEnumerator ArmRoutine()
+    {
+        yield return new WaitForSeconds(explodePlantData.armTime);
+
+        animator.speed = 1;
+        health = 9999;
     }
 }

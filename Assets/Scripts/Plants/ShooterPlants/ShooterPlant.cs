@@ -2,23 +2,15 @@ using UnityEngine;
 
 public class ShooterPlant : Plant
 {
-    public GameObject projectilePrefab;
-    public float fireRate = 1f;
-    public float fireRange = 12f;
-
+    [Header("Shooter Plant Data")]
+    ShooterPlantData shooterPlantData;
     private float timer;
-
-    public float dmgDealt = 20;
-
     private Animator animator;
-
-    public Vector2 shootPoint = new Vector2(0.2f, 0.19f);
-
     public LayerMask zombieLayer;
-
     void Start()
     {
         animator = GetComponent<Animator>();
+        shooterPlantData = (ShooterPlantData)data;
     }
 
     void Update()
@@ -31,10 +23,9 @@ public class ShooterPlant : Plant
 
         timer += Time.deltaTime;
 
-        if (timer >= fireRate)
+        if (timer >= shooterPlantData.fireRate)
         {
             animator.SetBool("isShoot", true);
-            timer = 0f;
         }
     }
 
@@ -43,7 +34,7 @@ public class ShooterPlant : Plant
         RaycastHit2D hit = Physics2D.Raycast(
             transform.position,
             Vector2.right,
-            fireRange,
+            shooterPlantData.fireRange,
             zombieLayer
         );
 
@@ -53,18 +44,19 @@ public class ShooterPlant : Plant
     void Shoot()
     {
         Vector2 pos = transform.position;
-        pos.x += shootPoint.x;
-        pos.y += shootPoint.y;
+        pos.x += shooterPlantData.shootPoint.x;
+        pos.y += shooterPlantData.shootPoint.y;
 
         GameObject proj = ProjectilePool.Instance.GetProjectile(
-            projectilePrefab.GetComponent<StraightProjectile>().projectileType.ToString(),
+            shooterPlantData.projectilePrefab.GetComponent<StraightProjectile>().projectileType.ToString(),
             pos
         );
 
         StraightProjectile pea = proj.GetComponent<StraightProjectile>();
-        pea.damage = dmgDealt;
+        pea.damage = shooterPlantData.dmgDealt;
 
         SoundManager.instance.PlaySound(SoundManager.instance.shoot);
+        timer = 0f;
     }
 
     public void EndShoot()

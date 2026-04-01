@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     public float sumAmount = 50f;
     public Canvas canvas;
     public GameObject menuButton;
-
+    public TextMeshProUGUI zombiesKilledCountText;
+    private int zombiesKilledCount = 0;
     public GameObject sunPrefab;
     public TextMeshProUGUI sunText;
 
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         sunText.text = sumAmount.ToString();
-
+        zombiesKilledCountText.text = "Zombies Killed: " + zombiesKilledCount;
         sunTimer += Time.deltaTime;
         if (sunTimer >= sunSpawnDelay)
         {
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            SoundManager.instance.PlaySound(SoundManager.instance.pauseSound);
             LevelMenu.Instance.ToggleMenu();
         }
 
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
 
         if (hit != null && hit.gameObject == menuButton)
         {
+            SoundManager.instance.PlaySound(SoundManager.instance.pauseSound);
             LevelMenu.Instance.ToggleMenu();
         }
     }
@@ -74,7 +77,10 @@ public class GameManager : MonoBehaviour
         SoundManager.instance.StopMusic();
         ChangeScene.Instance.LoadScene(0);
     }
-
+    public void IncrementZombiesKilled()
+    {
+        zombiesKilledCount++;
+    }
     void OnDestroy()
     {
         Debug.Log("GameManager bị destroy: " + gameObject.name);

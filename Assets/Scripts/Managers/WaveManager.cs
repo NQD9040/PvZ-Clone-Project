@@ -23,6 +23,7 @@ public class WaveManager : MonoBehaviour
     private float waveTimer = 0f;
     private bool isSpawning = false;
     private bool waveInProgress = false;
+    private bool isPlaySound = false;
     private List<int> lanePool = new List<int>();
 
     void Start()
@@ -34,7 +35,6 @@ public class WaveManager : MonoBehaviour
     void Update()
     {
         if (!waveInProgress || isSpawning) return;
-
         waveTimer += Time.deltaTime;
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Zombie");
@@ -55,8 +55,13 @@ public class WaveManager : MonoBehaviour
         float budget = CalculateBudget(waveNumber);
         waveTimer = 0f;
         waveInProgress = true;
-
-        Debug.Log($"<color=red>Wave {waveNumber} bắt đầu | Budget: {budget}</color>");
+        isPlaySound = false;
+        Debug.Log($"<color=red>Wave {waveNumber} started | Budget: {budget}</color>");
+        if ((waveNumber % 10 == 0 || waveNumber == 1) && !isPlaySound)
+        {
+            SoundManager.instance.PlaySound(SoundManager.instance.firstWaveSound);
+            isPlaySound = true;
+        }
         StartCoroutine(SpawnWave(budget));
     }
 

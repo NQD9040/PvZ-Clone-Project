@@ -124,6 +124,7 @@ public class FieldSlot : MonoBehaviour
             Debug.Log("This slot is already occupied.");
             plantSlots.selectedPlant = null;
         }
+        InputManager.Instance.isPlanting = false;
     }
 
     public void SetOccupied(bool status)

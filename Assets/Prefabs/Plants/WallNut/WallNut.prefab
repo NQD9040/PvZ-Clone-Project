@@ -106,12 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6af6fa859d9f3c4888b72a7e889f831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefensePlant
-  cost: 50
-  maxHealth: 3000
+  data: {fileID: 11400000, guid: 63050eacabb94dd4ea35c875941f7521, type: 2}
   health: 3000
-  cooldownTime: 30
-  healRate: 1
-  healPercentage: 0.01
 --- !u!95 &6096148396520342426
 Animator:
   serializedVersion: 7

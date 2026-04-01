@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72965d6a3214d59409bc1c58178ae1d4, type: 3}
+  m_Name: Sunflower
+  m_EditorClassIdentifier: Assembly-CSharp::ResourcePlantData
+  plantName: Sunflower
+  cost: 50
+  maxHealth: 200
+  cooldownTime: 7.5
+  plantType: 1
+  produceRate: 24
+  doubleProduceChance: 20

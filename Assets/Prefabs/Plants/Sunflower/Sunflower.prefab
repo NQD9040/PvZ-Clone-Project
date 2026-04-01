@@ -106,12 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731f221f04337974fafaf9a919e18166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 50
-  maxHealth: 200
+  data: {fileID: 11400000, guid: 47e5b7b4e9f29124cbc99fbd1f049a75, type: 2}
   health: 200
-  cooldownTime: 7.5
-  produceRate: 24.25
-  doubleProduceChance: 10
 --- !u!95 &50168980000198389
 Animator:
   serializedVersion: 7

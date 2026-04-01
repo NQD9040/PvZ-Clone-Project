@@ -106,15 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7077192b5466d94a80797d1a8a9dd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplodePlant
-  cost: 25
-  maxHealth: 200
+  data: {fileID: 11400000, guid: 1804e7a6d03f81f4a884ec44494c1026, type: 2}
   health: 200
-  cooldownTime: 30
-  radius: 0.5
-  typeOfExplode: Straight
-  isActive: 0
-  dmgDealt: 2500
-  animator: {fileID: 0}
 --- !u!95 &5973315289212915007
 Animator:
   serializedVersion: 7

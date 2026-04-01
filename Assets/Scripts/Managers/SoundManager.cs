@@ -26,6 +26,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip removePlant;
     public AudioClip chomperEat;
     public AudioClip gameOverSound;
+    public AudioClip firstWaveSound;
+    public AudioClip waveSound;
+    public AudioClip pauseSound;
     [Header("BGM")]
     public AudioSource musicSource;
     public AudioClip bgMusic;

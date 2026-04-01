@@ -33,10 +33,10 @@ public class PlantCard : MonoBehaviour
         plantCost = transform.Find("PlantCost").GetComponentInChildren<TextMeshProUGUI>();
 
         Plant plant = plantPrefab.GetComponent<Plant>();
-        cooldownTime = plant.cooldownTime;
+        cooldownTime = plant.data.cooldownTime;
 
         plantIcon.sprite = plantImg;
-        plantCost.text = plant.cost.ToString();
+        plantCost.text = plant.data.cost.ToString();
 
         gameManager = FindAnyObjectByType<GameManager>();
 
@@ -57,7 +57,7 @@ public class PlantCard : MonoBehaviour
         }
 
         bool isCoolingDown = cooldownTimer > 0;
-        bool isEnoughSun = gameManager.sumAmount >= plantPrefab.GetComponent<Plant>().cost;
+        bool isEnoughSun = gameManager.sumAmount >= plantPrefab.GetComponent<Plant>().data.cost;
 
         // selected overlay
         if (plantSlots.selectedPlant == plantPrefab || !isEnoughSun || isCoolingDown)
@@ -87,11 +87,11 @@ public class PlantCard : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (InputManager.Instance.isBlocked)
+        if (InputManager.Instance.isBlocked || InputManager.Instance.isShovelActive)
             return;
         Plant plant = plantPrefab.GetComponent<Plant>();
 
-        bool isEnoughSun = gameManager.sumAmount >= plant.cost;
+        bool isEnoughSun = gameManager.sumAmount >= plant.data.cost;
         bool isCoolingDown = cooldownTimer > 0;
 
         if (!isEnoughSun || isCoolingDown)
@@ -103,6 +103,7 @@ public class PlantCard : MonoBehaviour
         plantSlots.GetImg(plantImg);
         plantSlots.EnableFollowImage();
         plantSlots.GetSelectedPlant(plantPrefab, this.gameObject);
+        InputManager.Instance.isPlanting = true;
     }
     public void StartCooldown(float amount = 1)
     {

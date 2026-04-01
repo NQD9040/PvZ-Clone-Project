@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
-    public float maxHealth;
-    public float health;
+    [Header("Data")]
+    public ZombieData data;
 
-    public float dmgDealt = 20;
-    public float dmgRate = 0.5f;
-
-    public float moveSpeed = 0.3f;
+    [Header("Runtime")]
+    private float health;
+    private float currentMoveSpeed;
+    private float currentDmgRate;
 
     private Animator animator;
 
@@ -17,11 +17,17 @@ public class Zombie : MonoBehaviour
     private float attackTimer;
     private Coroutine slowCoroutine;
     private bool isSlowed = false;
+
     private float gameOverPositionX = -8f;
     private GameManager gameManager;
+
     void Start()
     {
-        health = maxHealth;
+        // Init từ ScriptableObject
+        health = data.maxHealth;
+        currentMoveSpeed = data.moveSpeed;
+        currentDmgRate = data.dmgRate;
+
         animator = GetComponent<Animator>();
         gameManager = FindAnyObjectByType<GameManager>();
     }
@@ -36,6 +42,7 @@ public class Zombie : MonoBehaviour
         {
             Eat();
         }
+
         if (transform.position.x <= gameOverPositionX)
         {
             gameManager.EndGame();
@@ -44,7 +51,8 @@ public class Zombie : MonoBehaviour
 
     void Move()
     {
-        transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
+        transform.Translate(Vector2.left * currentMoveSpeed * Time.deltaTime);
+
         animator.SetBool("isMoving", true);
         animator.SetBool("isEating", false);
     }
@@ -58,9 +66,9 @@ public class Zombie : MonoBehaviour
 
         attackTimer += Time.deltaTime;
 
-        if (attackTimer >= dmgRate)
+        if (attackTimer >= currentDmgRate)
         {
-            targetPlant.TakeDamage(dmgDealt);
+            targetPlant.TakeDamage(data.dmgDealt);
             SoundManager.instance.PlaySound(SoundManager.instance.zombieEat);
             attackTimer = 0f;
         }
@@ -68,11 +76,26 @@ public class Zombie : MonoBehaviour
 
     public void TakeDamage(float dmgTaken, bool isSlow = false)
     {
+        if (data.shieldHealth > 0)
+        {
+            data.shieldHealth -= dmgTaken;
+
+            if (data.shieldHealth < 0)
+            {
+                dmgTaken = -data.shieldHealth;
+                data.shieldHealth = 0;
+            }
+            else
+            {
+                dmgTaken = 0;
+            }
+        }
         health -= dmgTaken;
 
         if (health <= 0)
         {
             Die();
+            return;
         }
 
         if (isSlow)
@@ -83,17 +106,20 @@ public class Zombie : MonoBehaviour
 
     private void ApplySlow()
     {
-        // Nếu chưa bị slow -> apply effect + play sound
         if (!isSlowed)
         {
             isSlowed = true;
-            moveSpeed *= 0.5f;
+
+            currentMoveSpeed *= 0.5f;
+            currentDmgRate *= 2f;
+
+            animator.speed = 0.5f;
 
             SoundManager.instance.PlaySound(SoundManager.instance.snowEffect);
             SoundManager.instance.PlaySound(SoundManager.instance.slowDownEffect);
         }
 
-        // Nếu đang có coroutine cũ -> stop để reset timer
+        // Reset timer nếu bị slow lại
         if (slowCoroutine != null)
         {
             StopCoroutine(slowCoroutine);
@@ -106,12 +132,16 @@ public class Zombie : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
 
-        // Hết slow
-        moveSpeed *= 2f;
+        currentMoveSpeed = data.moveSpeed;
+        currentDmgRate = data.dmgRate;
+
+        animator.speed = 1f;
         isSlowed = false;
     }
+
     void Die()
     {
+        gameManager.IncrementZombiesKilled();
         Destroy(gameObject);
     }
 

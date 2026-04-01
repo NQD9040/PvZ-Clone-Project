@@ -30,7 +30,7 @@ public class Shovel : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (InputManager.Instance.isBlocked)
+        if (InputManager.Instance.isBlocked || InputManager.Instance.isPlanting)
             return;
         ToggleShovel();
         SoundManager.instance.PlaySound(SoundManager.instance.pickupShovel);
@@ -47,6 +47,7 @@ public class Shovel : MonoBehaviour
 
         // bật/tắt image follow chuột
         shovelFollowImage.gameObject.SetActive(isShovelActive);
+        InputManager.Instance.isShovelActive = isShovelActive;
     }
 
     public bool IsShovelActive()
@@ -58,5 +59,6 @@ public class Shovel : MonoBehaviour
         isShovelActive = false;
         GetComponent<SpriteRenderer>().sprite = shovelInactiveSprite;
         shovelFollowImage.gameObject.SetActive(false);
+        InputManager.Instance.isShovelActive = isShovelActive;
     }
 }

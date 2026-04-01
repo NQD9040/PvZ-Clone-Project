@@ -129,11 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d53ed0b96ea034cb73d3c856a77586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zombie
-  maxHealth: 200
-  health: 0
-  dmgDealt: 35
-  dmgRate: 0.5
-  moveSpeed: 0.25
+  data: {fileID: 11400000, guid: 2b2a462e3ca6b664ea962d6c1b94c1e1, type: 2}
 --- !u!61 &7387480515882707713
 BoxCollider2D:
   m_ObjectHideFlags: 0

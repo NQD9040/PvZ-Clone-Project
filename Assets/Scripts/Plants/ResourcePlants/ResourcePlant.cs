@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ResourcePlant : Plant
 {
-    public float produceRate = 10f;
+    [Header("Resource Plant Data")]
+    ResourcePlantData resourcePlantData;
     private float timer;
-    public float doubleProduceChance = 20f;
     private Animator animator;
     void Start ()
     {
         animator = GetComponent<Animator>();
-        timer += produceRate / 2f; // Start with half the produce time for quicker initial resource generation
+        resourcePlantData = (ResourcePlantData)data;
+        timer += resourcePlantData.produceRate / 2f;
     }
     void Update()
     {
         timer += Time.deltaTime;
 
-        if(timer >= produceRate)
+        if(timer >= resourcePlantData.produceRate)
         {
             animator.SetBool("isProducing", true);
             timer = 0;
@@ -24,7 +25,7 @@ public class ResourcePlant : Plant
     }
     void SpawnResource()
     {
-        bool doubleProduce = Random.value * 100 < doubleProduceChance;
+        bool doubleProduce = Random.value * 100 < resourcePlantData.doubleProduceChance;
         GameObject res = ResourcePool.Instance.GetResource(doubleProduce ? DropResource.ResourceType.BigSun
          : DropResource.ResourceType.Sun, transform.position);
         DropResource drop = res.GetComponent<DropResource>();

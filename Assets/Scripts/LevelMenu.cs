@@ -9,6 +9,7 @@ public class LevelMenu : MonoBehaviour
     public GameObject leaveBarImage;
     private GameObject leaveHitbox;
     private GameObject cancelHitbox;
+    private PlantSlots plantSlots;
     void Awake()
     {
         Instance = this;
@@ -16,6 +17,7 @@ public class LevelMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        plantSlots = FindAnyObjectByType<PlantSlots>();
         cancelHitbox = leaveBarImage.transform.GetChild(1).gameObject;
         leaveHitbox = leaveBarImage.transform.GetChild(0).gameObject;
         if (leaveHitbox == null)
@@ -78,6 +80,8 @@ public class LevelMenu : MonoBehaviour
         Debug.Log("Toggling menu");
         try
         {
+            plantSlots.selectedPlant = null;
+            plantSlots.DisableFollowImage();
             bool isActive = menuCanvas.gameObject.activeSelf;
             InputManager.Instance.isBlocked = true;
             // toggle UI

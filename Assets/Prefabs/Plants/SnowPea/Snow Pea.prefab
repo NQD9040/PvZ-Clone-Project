@@ -106,15 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2e786af8ab162468a86100001230f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShooterPlant
-  cost: 175
-  maxHealth: 200
+  data: {fileID: 11400000, guid: c62a07594b68a24488eb6d44ca03eb3c, type: 2}
   health: 200
-  cooldownTime: 7.5
-  projectilePrefab: {fileID: 8623912034507016765, guid: 2afb42fc73053f64bb3d16abfe724139, type: 3}
-  fireRate: 0.5
-  fireRange: 14
-  dmgDealt: 20
-  shootPoint: {x: 0.2, y: 0.3}
   zombieLayer:
     serializedVersion: 2
     m_Bits: 64

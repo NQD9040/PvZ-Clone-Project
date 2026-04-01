@@ -106,10 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa4950c801edfa4bbcdcab81cb95d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chomper
-  cost: 150
-  maxHealth: 200
+  data: {fileID: 11400000, guid: b637fec1190be2c45958d9fdeb574a3f, type: 2}
   health: 200
-  cooldownTime: 7.5
   attackRange: 2
   attackDmg: 200
   chewDuration: 42

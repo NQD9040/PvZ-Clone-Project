@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
-    public float cost;
-    public float maxHealth;
+    [Header("Data")]
+    public PlantData data;
+
+    [Header("Runtime")]
     public float health;
-    public float cooldownTime;
     private FieldSlot fieldSlot;
     void Start()
     {
-        health = maxHealth;
+        health = data.maxHealth;
     }
     public void TakeDamage(float dmgTaken)
     {
@@ -34,7 +35,7 @@ public class Plant : MonoBehaviour
     }
     public float GetCost()
     {
-        return cost;
+        return data.cost;
     }
     public void SetFieldSlot(FieldSlot slot)
     {
@@ -43,6 +44,6 @@ public class Plant : MonoBehaviour
     }
     public float GetCooldownTime()
     {
-        return cooldownTime;
+        return data.cooldownTime;
     }
 }
