@@ -2133,7 +2133,7 @@ MonoBehaviour:
   shoot: {fileID: 8300000, guid: d8059be436e2d3041b2e09ee19dfcefe, type: 3}
   normalHit: {fileID: 8300000, guid: a938306f4e85a854ab8a23d974edd582, type: 3}
   coneHeadHit: {fileID: 8300000, guid: 4e6ac1894bb41cb4c8752057b75dff0c, type: 3}
-  ironHit: {fileID: 8300000, guid: c1a3441ee35fb2e46aaa658087a573fc, type: 3}
+  bucketHeadHit: {fileID: 8300000, guid: c1a3441ee35fb2e46aaa658087a573fc, type: 3}
   zombieDeath: {fileID: 8300000, guid: abe7dc4dad7e840459b2d56c01fd8684, type: 3}
   sunPickup: {fileID: 8300000, guid: f6a56d2069df7ba48bf17facc823c22a, type: 3}
   canNotPick: {fileID: 8300000, guid: fb45c328c51637a48b2b4eab9717b3e4, type: 3}
@@ -10481,7 +10481,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &1181985550
 RectTransform:
@@ -12839,12 +12839,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c00ac4b417bbd847836b7ed551a6f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  sumAmount: 50
+  sunAmount: 50
+  sunPrefab: {fileID: 5193102725230928835, guid: 8a1f89a60a17c7a4f84a2f42d3e266fa, type: 3}
   canvas: {fileID: 878048455}
   menuButton: {fileID: 1870225793}
-  zombiesKilledCountText: {fileID: 1869952229}
-  sunPrefab: {fileID: 5193102725230928835, guid: 8a1f89a60a17c7a4f84a2f42d3e266fa, type: 3}
   sunText: {fileID: 806533879}
+  zombieKilledText: {fileID: 1869952229}
   sunSpawnDelay: 10
 --- !u!4 &1462170112
 Transform:
@@ -14202,7 +14202,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d6568f4eecf8a94fb9a0909ceb45995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  normalZombiePrefab: {fileID: 6551328879656397392, guid: 6f170c9c44161094793bc654ec30915f, type: 3}
+  zombiePrefabs:
+  - prefab: {fileID: 6551328879656397392, guid: 6f170c9c44161094793bc654ec30915f, type: 3}
+    cost: 10
+  - prefab: {fileID: 6551328879656397392, guid: 7c46e9b5df98f0f4c85e5123f700cbf0, type: 3}
+    cost: 25
+  - prefab: {fileID: 6551328879656397392, guid: 35eb7bfe1c3d1b34cb122e296bd00ecc, type: 3}
+    cost: 60
   basePointValue: 5
   increment: 10
   flagMultiplier: 2.5

@@ -8,56 +8,106 @@ public class Zombie : MonoBehaviour
 
     [Header("Runtime")]
     private float health;
-    private float currentMoveSpeed;
-    private float currentDmgRate;
+    private float currentShieldHealth;
+    private float moveSpeed;
+    private float dmgRate;
 
     private Animator animator;
+    private GameManager gameManager;
 
     private Plant targetPlant;
     private float attackTimer;
-    private Coroutine slowCoroutine;
-    private bool isSlowed = false;
 
-    private float gameOverPositionX = -8f;
-    private GameManager gameManager;
+    private Coroutine slowCoroutine;
+    private bool isSlowed;
+
+    private const float GAME_OVER_X = -8f;
+    private GameObject shieldObject;
+    private enum State
+    {
+        Move,
+        Eat,
+        Dead
+    }
+
+    private State currentState;
+
+    #region Unity Methods
 
     void Start()
     {
-        // Init từ ScriptableObject
-        health = data.maxHealth;
-        currentMoveSpeed = data.moveSpeed;
-        currentDmgRate = data.dmgRate;
-
-        animator = GetComponent<Animator>();
-        gameManager = FindAnyObjectByType<GameManager>();
+        if (transform.childCount != 0)
+        {
+            shieldObject = transform.GetChild(0).gameObject;
+            shieldObject.SetActive(true);
+        }
+        currentShieldHealth = data.shieldHealth;
+        Init();
     }
 
     void Update()
     {
-        if (targetPlant == null)
-        {
-            Move();
-        }
-        else
-        {
-            Eat();
-        }
+        if (currentState == State.Dead) return;
 
-        if (transform.position.x <= gameOverPositionX)
+        UpdateState();
+        HandleState();
+        CheckGameOver();
+    }
+
+    #endregion
+
+    #region Init
+
+    void Init()
+    {
+        health = data.maxHealth;
+        moveSpeed = data.moveSpeed;
+        dmgRate = data.dmgRate;
+
+        animator = GetComponent<Animator>();
+        gameManager = FindAnyObjectByType<GameManager>();
+
+        currentState = State.Move;
+    }
+
+    #endregion
+
+    #region State Logic
+
+    void UpdateState()
+    {
+        if (targetPlant != null)
+            currentState = State.Eat;
+        else
+            currentState = State.Move;
+    }
+
+    void HandleState()
+    {
+        switch (currentState)
         {
-            gameManager.EndGame();
+            case State.Move:
+                HandleMove();
+                break;
+            case State.Eat:
+                HandleEat();
+                break;
         }
     }
 
-    void Move()
+    #endregion
+
+    #region Actions
+
+    void HandleMove()
     {
-        transform.Translate(Vector2.left * currentMoveSpeed * Time.deltaTime);
+        transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
 
         animator.SetBool("isMoving", true);
         animator.SetBool("isEating", false);
     }
 
-    void Eat()
+    void HandleEat()
     {
         if (targetPlant == null) return;
 
@@ -66,7 +116,7 @@ public class Zombie : MonoBehaviour
 
         attackTimer += Time.deltaTime;
 
-        if (attackTimer >= currentDmgRate)
+        if (attackTimer >= dmgRate)
         {
             targetPlant.TakeDamage(data.dmgDealt);
             SoundManager.instance.PlaySound(SoundManager.instance.zombieEat);
@@ -74,23 +124,18 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float dmgTaken, bool isSlow = false)
-    {
-        if (data.shieldHealth > 0)
-        {
-            data.shieldHealth -= dmgTaken;
+    #endregion
 
-            if (data.shieldHealth < 0)
-            {
-                dmgTaken = -data.shieldHealth;
-                data.shieldHealth = 0;
-            }
-            else
-            {
-                dmgTaken = 0;
-            }
+    #region Damage & Effects
+
+    public void TakeDamage(float damage, bool applySlow = false)
+    {
+        damage = ApplyShield(damage);
+        if (currentShieldHealth <=0 && shieldObject != null)
+        {
+            shieldObject.SetActive(false);
         }
-        health -= dmgTaken;
+        health -= damage;
 
         if (health <= 0)
         {
@@ -98,52 +143,103 @@ public class Zombie : MonoBehaviour
             return;
         }
 
-        if (isSlow)
+        if (applySlow)
         {
             ApplySlow();
         }
     }
+    public string GetShieldStatus()
+    {
+        if (currentShieldHealth > 0)
+        {
+            if (ZombieData.shieldType.Conehead == data.shield) return "Conehead";
+            if (ZombieData.shieldType.Buckethead == data.shield) return "Buckethead";
+        }
+        return "None";
+    }
+    float ApplyShield(float damage)
+    {
+        if (currentShieldHealth <= 0) return damage;
 
-    private void ApplySlow()
+        currentShieldHealth -= damage;
+
+        ChangeShield();
+        if (currentShieldHealth < 0)
+        {
+            float remain = -currentShieldHealth;
+            currentShieldHealth = 0;
+            shieldObject.SetActive(false);
+            return remain;
+        }
+        return 0;
+    }
+    void ChangeShield()
+    {
+        if (currentShieldHealth <= (2*data.shieldHealth) / 3)
+        {
+            shieldObject.gameObject.SetActive(false);
+            shieldObject = transform.GetChild(1).gameObject;
+            shieldObject.gameObject.SetActive(true);
+        }
+        if (currentShieldHealth <= (1*data.shieldHealth) / 3)
+        {
+            shieldObject.gameObject.SetActive(false);
+            shieldObject = transform.GetChild(2).gameObject;
+            shieldObject.gameObject.SetActive(true);
+        }
+    }
+    void ApplySlow()
     {
         if (!isSlowed)
         {
             isSlowed = true;
 
-            currentMoveSpeed *= 0.5f;
-            currentDmgRate *= 2f;
+            moveSpeed *= 0.5f;
+            dmgRate *= 2f;
 
             animator.speed = 0.5f;
 
-            SoundManager.instance.PlaySound(SoundManager.instance.snowEffect);
-            SoundManager.instance.PlaySound(SoundManager.instance.slowDownEffect);
+            PlaySlowSound();
         }
 
-        // Reset timer nếu bị slow lại
         if (slowCoroutine != null)
-        {
             StopCoroutine(slowCoroutine);
-        }
 
-        slowCoroutine = StartCoroutine(SlowDown());
+        slowCoroutine = StartCoroutine(RemoveSlowAfterTime(5f));
     }
 
-    private IEnumerator SlowDown()
+    IEnumerator RemoveSlowAfterTime(float duration)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(duration);
 
-        currentMoveSpeed = data.moveSpeed;
-        currentDmgRate = data.dmgRate;
+        moveSpeed = data.moveSpeed;
+        dmgRate = data.dmgRate;
 
         animator.speed = 1f;
         isSlowed = false;
     }
 
+    void PlaySlowSound()
+    {
+        SoundManager.instance.PlaySound(SoundManager.instance.snowEffect);
+        SoundManager.instance.PlaySound(SoundManager.instance.slowDownEffect);
+    }
+
+    #endregion
+
+    #region Death
+
     void Die()
     {
+        currentState = State.Dead;
+
         gameManager.IncrementZombiesKilled();
         Destroy(gameObject);
     }
+
+    #endregion
+
+    #region Collision
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -160,4 +256,18 @@ public class Zombie : MonoBehaviour
             targetPlant = null;
         }
     }
+
+    #endregion
+
+    #region Utils
+
+    void CheckGameOver()
+    {
+        if (transform.position.x <= GAME_OVER_X)
+        {
+            gameManager.EndGame();
+        }
+    }
+
+    #endregion
 }

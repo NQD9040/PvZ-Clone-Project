@@ -8,4 +8,11 @@ public class ZombieData : ScriptableObject
     public float dmgDealt;
     public float dmgRate;
     public float moveSpeed;
+    public enum shieldType
+    {
+        None,
+        Conehead,
+        Buckethead
+    }
+    public shieldType shield;
 }

@@ -12,7 +12,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip shoot;
     public AudioClip normalHit;
     public AudioClip coneHeadHit;
-    public AudioClip ironHit;
+    public AudioClip bucketHeadHit;
     public AudioClip zombieDeath;
     public AudioClip sunPickup;
     public AudioClip canNotPick;

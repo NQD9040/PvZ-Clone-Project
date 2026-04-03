@@ -1,49 +1,128 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public float sumAmount = 50f;
-    public Canvas canvas;
-    public GameObject menuButton;
-    public TextMeshProUGUI zombiesKilledCountText;
-    private int zombiesKilledCount = 0;
-    public GameObject sunPrefab;
-    public TextMeshProUGUI sunText;
+    [Header("Resource")]
+    public float sunAmount = 50f;
+    [SerializeField] private GameObject sunPrefab;
 
-    public float sunSpawnDelay = 5f;
+    [Header("UI")]
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private GameObject menuButton;
+    [SerializeField] private TextMeshProUGUI sunText;
+    [SerializeField] private TextMeshProUGUI zombieKilledText;
+
+    [Header("Sun Spawn")]
+    [SerializeField] private float sunSpawnDelay = 5f;
+
     private float sunTimer;
+    private int zombiesKilled;
+
+    #region Unity
 
     void Start()
     {
-        Time.timeScale = 1f;
-        canvas.gameObject.SetActive(true);
-        SpawnSun();
-        SoundManager.instance.StopMusic();
-        SoundManager.instance.PlayMusic(SoundManager.instance.bgMusic);
+        Init();
     }
 
     void Update()
     {
-        sunText.text = sumAmount.ToString();
-        zombiesKilledCountText.text = "Zombies Killed: " + zombiesKilledCount;
+        HandleSunSpawn();
+        HandleInput();
+    }
+
+    #endregion
+
+    #region Init
+
+    void Init()
+    {
+        Time.timeScale = 1f;
+        canvas.gameObject.SetActive(true);
+
+        UpdateSunUI();
+        UpdateKillUI();
+
+        SpawnSun();
+
+        SoundManager.instance.StopMusic();
+        SoundManager.instance.PlayMusic(SoundManager.instance.bgMusic);
+    }
+
+    #endregion
+
+    #region Update Logic
+
+    void HandleSunSpawn()
+    {
         sunTimer += Time.deltaTime;
+
         if (sunTimer >= sunSpawnDelay)
         {
             SpawnSun();
             sunTimer = 0f;
         }
+    }
 
+    void HandleInput()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SoundManager.instance.PlaySound(SoundManager.instance.pauseSound);
-            LevelMenu.Instance.ToggleMenu();
+            ToggleMenu();
         }
 
-        if (!Input.GetMouseButtonDown(0)) return;
-        HandleMenuClick();
+        if (Input.GetMouseButtonDown(0))
+        {
+            HandleMenuClick();
+        }
     }
+
+    #endregion
+
+    #region UI
+
+    void UpdateSunUI()
+    {
+        sunText.text = sunAmount.ToString();
+    }
+
+    void UpdateKillUI()
+    {
+        zombieKilledText.text = $"Zombies Killed: {zombiesKilled}";
+    }
+
+    #endregion
+
+    #region Sun System
+
+    public void AddSun(float amount)
+    {
+        sunAmount += amount;
+        UpdateSunUI();
+    }
+
+    void SpawnSun()
+    {
+        float randomX = Random.Range(-7f, 5f);
+        Vector2 spawnPos = new(randomX, 6.4f);
+
+        ResourcePool.Instance.GetResource(DropResource.ResourceType.Sun, spawnPos);
+    }
+
+    #endregion
+
+    #region Zombie
+
+    public void IncrementZombiesKilled()
+    {
+        zombiesKilled++;
+        UpdateKillUI();
+    }
+
+    #endregion
+
+    #region Menu
 
     void HandleMenuClick()
     {
@@ -54,35 +133,32 @@ public class GameManager : MonoBehaviour
 
         if (hit != null && hit.gameObject == menuButton)
         {
-            SoundManager.instance.PlaySound(SoundManager.instance.pauseSound);
-            LevelMenu.Instance.ToggleMenu();
+            ToggleMenu();
         }
     }
 
-    public void UpdateSunAmount(float amount)
+    void ToggleMenu()
     {
-        sumAmount += amount;
+        SoundManager.instance.PlaySound(SoundManager.instance.pauseSound);
+        LevelMenu.Instance.ToggleMenu();
     }
 
-    void SpawnSun()
-    {
-        float randomX = Random.Range(-7.0f, 5.0f);
-        Vector2 spawnPos = new Vector2(randomX, 6.4f);
-        ResourcePool.Instance.GetResource(DropResource.ResourceType.Sun, spawnPos);
-    }
+    #endregion
+
+    #region Game Flow
 
     public void EndGame()
     {
         Debug.Log("END GAME TRIGGERED");
+
         SoundManager.instance.StopMusic();
         ChangeScene.Instance.LoadScene(0);
     }
-    public void IncrementZombiesKilled()
-    {
-        zombiesKilledCount++;
-    }
+
+    #endregion
+
     void OnDestroy()
     {
-        Debug.Log("GameManager bị destroy: " + gameObject.name);
+        Debug.Log("GameManager destroyed: " + gameObject.name);
     }
 }

@@ -113,7 +113,7 @@ public class FieldSlot : MonoBehaviour
             occupied = true;
             plantSlots.selectedPlant = null;
 
-            gameManager.UpdateSunAmount(-plantCost);
+            gameManager.AddSun(-plantCost);
 
             highlight.SetActive(false);
             plantSlots.selectedPlantCard.GetComponent<PlantCard>().StartCooldown();

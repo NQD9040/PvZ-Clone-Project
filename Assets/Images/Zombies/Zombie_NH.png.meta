@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 72925c57a2964484685d844bf51ead3c
+guid: a7304b4ba6f6461469a86cb40ec88722
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5327652917740074152
-    second: conehead_0
+      213: -4838069074097271036
+    second: Zombie_NH_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,67 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: conehead_0
+      name: Zombie_NH_0
       rect:
         serializedVersion: 2
-        x: 22
-        y: 7
-        width: 244
-        height: 254
-      alignment: 9
-      pivot: {x: 0.33903617, y: 0.17012972}
+        x: 0
+        y: 0
+        width: 308
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8a478700a10afe940800000000000000
-      internalID: 5327652917740074152
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: conehead_1
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 6
-        width: 257
-        height: 243
-      alignment: 9
-      pivot: {x: 0.37519556, y: 0.18482873}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a885fb40e2cb1d429316b042a16dbc1
-      internalID: 1468879051
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: conehead_2
-      rect:
-        serializedVersion: 2
-        x: 659
-        y: 6
-        width: 267
-        height: 244
-      alignment: 9
-      pivot: {x: 0.35780546, y: 0.18612044}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 261d1dc187a3e2c41a56fab5b4c13d90
-      internalID: 835465524
+      spriteID: 40f01af6fc9bbdcb0800000000000000
+      internalID: -4838069074097271036
       vertices: []
       indices: 
       edges: []
@@ -182,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0e74b012d32d430498ad5b60862b2d6b
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -190,13 +146,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      conehead_0: 5327652917740074152
-      conehead_1: 1468879051
-      conehead_2: 835465524
+      Zombie_NH_0: -4838069074097271036
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

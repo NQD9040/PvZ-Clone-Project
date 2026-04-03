@@ -2,19 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class ZombieCostData
+{
+    public GameObject prefab;
+    public int cost;
+}
+
 public class WaveManager : MonoBehaviour
 {
     [Header("Zombie Prefabs")]
-    public GameObject normalZombiePrefab;   // cost = 10
+    public List<ZombieCostData> zombiePrefabs;
 
     [Header("Wave Settings")]
-    public float basePointValue = 20f;      
-    public float increment = 10f;          
+    public float basePointValue = 20f;
+    public float increment = 10f;
     public float flagMultiplier = 2.5f;
     public int flagInterval = 10;
 
     public float startDelay = 30f;
-    public float maxWaveTime = 45f;         
+    public float maxWaveTime = 45f;
     public float spawnInterval = 1.5f;
 
     public float[] yColumnSpawn = new float[5] { 2.2f, 0.6f, -1.0f, -2.6f, -4.2f };
@@ -24,17 +31,19 @@ public class WaveManager : MonoBehaviour
     private bool isSpawning = false;
     private bool waveInProgress = false;
     private bool isPlaySound = false;
+
     private List<int> lanePool = new List<int>();
 
     void Start()
     {
         Debug.Log($"Game started! You have {startDelay} seconds to prepare.");
-        Invoke("StartNextWave", startDelay);
+        Invoke(nameof(StartNextWave), startDelay);
     }
 
     void Update()
     {
         if (!waveInProgress || isSpawning) return;
+
         waveTimer += Time.deltaTime;
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Zombie");
@@ -45,7 +54,7 @@ public class WaveManager : MonoBehaviour
         {
             waveInProgress = false;
             Debug.Log(timerExpired ? "Time's up! Next wave." : "All enemies defeated! Next wave.");
-            Invoke("StartNextWave", 5f);
+            Invoke(nameof(StartNextWave), 5f);
         }
     }
 
@@ -53,15 +62,33 @@ public class WaveManager : MonoBehaviour
     {
         waveNumber++;
         float budget = CalculateBudget(waveNumber);
+
         waveTimer = 0f;
         waveInProgress = true;
         isPlaySound = false;
+
         Debug.Log($"<color=red>Wave {waveNumber} started | Budget: {budget}</color>");
+
+        // Sound
         if ((waveNumber % 10 == 0 || waveNumber == 1) && !isPlaySound)
         {
-            SoundManager.instance.PlaySound(SoundManager.instance.firstWaveSound);
+            if (SoundManager.instance != null)
+            {
+                SoundManager.instance.PlaySound(SoundManager.instance.firstWaveSound);
+            }
             isPlaySound = true;
         }
+
+        // Difficulty scaling
+        if (waveNumber % 5 == 0 && waveNumber != 1)
+        {
+            spawnInterval = Mathf.Max(0.3f, spawnInterval - 0.2f);
+            maxWaveTime = Mathf.Max(10f, maxWaveTime - 5f);
+            increment += 5f;
+
+            Debug.Log($"<color=yellow>Difficulty increased! Spawn Interval: {spawnInterval}s | Max Wave Time: {maxWaveTime}s | Budget Increment: {increment}</color>");
+        }
+
         StartCoroutine(SpawnWave(budget));
     }
 
@@ -70,18 +97,28 @@ public class WaveManager : MonoBehaviour
         isSpawning = true;
         float remainingBudget = currentBudget;
 
-        while (remainingBudget >= 10)
+        while (remainingBudget > 0)
         {
-            if (lanePool.Count == 0) ResetLanePool();
+            // Lọc zombie spawn được
+            List<ZombieCostData> available = zombiePrefabs.FindAll(z => z.cost <= remainingBudget);
+
+            if (available.Count == 0)
+                break;
+
+            ZombieCostData chosen = available[Random.Range(0, available.Count)];
+
+            // Lane random không bị trùng liên tục
+            if (lanePool.Count == 0)
+                ResetLanePool();
+
             int randomIndex = Random.Range(0, lanePool.Count);
             int selectedLane = lanePool[randomIndex];
             lanePool.RemoveAt(randomIndex);
 
-            // Spawn
             Vector2 spawnPos = new Vector2(9.6f, yColumnSpawn[selectedLane]);
-            Instantiate(normalZombiePrefab, spawnPos, Quaternion.identity);
+            Instantiate(chosen.prefab, spawnPos, Quaternion.identity);
 
-            remainingBudget -= 10;
+            remainingBudget -= chosen.cost;
 
             yield return new WaitForSeconds(spawnInterval);
         }
@@ -93,17 +130,18 @@ public class WaveManager : MonoBehaviour
     float CalculateBudget(int wave)
     {
         float currentPoints = basePointValue + (wave * increment);
-        
+
         if (wave % flagInterval == 0)
         {
             return currentPoints * flagMultiplier;
         }
-        
+
         return currentPoints;
     }
 
     void ResetLanePool()
     {
+        lanePool.Clear();
         for (int i = 0; i < yColumnSpawn.Length; i++)
         {
             lanePool.Add(i);

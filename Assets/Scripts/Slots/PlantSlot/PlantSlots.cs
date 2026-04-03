@@ -25,7 +25,7 @@ public class PlantSlots : MonoBehaviour
     {
         if (plant != null)
         {
-            float sunAmount = FindAnyObjectByType<GameManager>().sumAmount;
+            float sunAmount = FindAnyObjectByType<GameManager>().sunAmount;
             float plantCost = plant.GetComponent<Plant>().GetCost();
             if (plantCost > sunAmount)
             {

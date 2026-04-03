@@ -68,7 +68,7 @@ public class DropResource : MonoBehaviour
             {
                 if (gameManager != null)
                 {
-                    gameManager.UpdateSunAmount(amount);
+                    gameManager.AddSun(amount);
                 }
 
                 ResourcePool.Instance.ReturnResource(gameObject);

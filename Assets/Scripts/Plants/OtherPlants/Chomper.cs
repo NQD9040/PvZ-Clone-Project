@@ -6,7 +6,9 @@ public class Chomper : Plant
 {
     public float attackRange = 1f;
     public float attackDmg = 200f;
+    public float maxHealthCanObtain = 1500f;
     public float chewDuration = 42f;
+    public float instantlyKillChances = 0.2f;
     public LayerMask zombieLayer;
     private bool isChewing = false;
     private Zombie currentTarget;
@@ -73,8 +75,18 @@ public class Chomper : Plant
         else
         {
             // instant kill
+            health += (currentTarget.data.maxHealth / 2f) + (currentTarget.data.shieldHealth / 2f); // obtain health from eating
+            Debug.Log("Chomper health after eating: " + health);
+            if (health > maxHealthCanObtain)
+            {
+                health = maxHealthCanObtain;
+            }
             currentTarget.TakeDamage(99999);
-            StartCoroutine(Chew());
+            // 20% chance to instantly kill even unchompable zombies
+            if (Random.value > instantlyKillChances)
+            {
+                StartCoroutine(Chew());
+            }
         }
 
         SoundManager.instance.PlaySound(SoundManager.instance.chomperEat);

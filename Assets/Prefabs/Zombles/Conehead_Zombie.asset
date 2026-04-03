@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5901734ebd67b946969510bac3dcdd6, type: 3}
-  m_Name: Zombie
+  m_Name: Conehead_Zombie
   m_EditorClassIdentifier: Assembly-CSharp::ZombieData
   maxHealth: 200
-  shieldHealth: 0
+  shieldHealth: 360
   dmgDealt: 30
   dmgRate: 0.5
   moveSpeed: 0.2
+  shield: 1
