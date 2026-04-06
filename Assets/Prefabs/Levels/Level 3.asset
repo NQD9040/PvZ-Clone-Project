@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd84b86741d8cfd4ca896146a0c3bc3d, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  levelNumber: 3
+  maxWaves: 20
+  zombieTypes:
+  - prefab: {fileID: 6551328879656397392, guid: 6f170c9c44161094793bc654ec30915f, type: 3}
+    cost: 10
+  - prefab: {fileID: 6551328879656397392, guid: 7c46e9b5df98f0f4c85e5123f700cbf0, type: 3}
+    cost: 25
+  plantCards:
+  - {fileID: 8255742968761565955, guid: c29f5741c505e9e48b04d7da0e40b251, type: 3}
+  - {fileID: 4234575974926667292, guid: e78630b73effea24493f084343b1d1c2, type: 3}
+  - {fileID: 4043372789222466003, guid: 37dd333c898556e46913f0426cce235d, type: 3}
+  - {fileID: 6180417941509207513, guid: 577efaaa3c7834a4f95a3675e434cd75, type: 3}
+  - {fileID: 125756485913509284, guid: 1f586d690315a0c4da8a5c4a880a7b8b, type: 3}
+  - {fileID: 7478062177901895237, guid: fd2489b128e95004ea1ca9a858b4e902, type: 3}

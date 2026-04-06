@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class ZombieCostData
@@ -11,9 +12,8 @@ public class ZombieCostData
 
 public class WaveManager : MonoBehaviour
 {
-    [Header("Zombie Prefabs")]
-    public List<ZombieCostData> zombiePrefabs;
-
+    [Header("Level Data")]
+    private LevelData levelData;
     [Header("Wave Settings")]
     public float basePointValue = 20f;
     public float increment = 10f;
@@ -31,11 +31,12 @@ public class WaveManager : MonoBehaviour
     private bool isSpawning = false;
     private bool waveInProgress = false;
     private bool isPlaySound = false;
-
+    public Image progressBar;
     private List<int> lanePool = new List<int>();
 
     void Start()
     {
+        levelData = LevelManager.Instance.LoadLevel(LevelManager.Instance.currentLevel);
         Debug.Log($"Game started! You have {startDelay} seconds to prepare.");
         Invoke(nameof(StartNextWave), startDelay);
     }
@@ -61,6 +62,8 @@ public class WaveManager : MonoBehaviour
     void StartNextWave()
     {
         waveNumber++;
+        float percent = (float)waveNumber / levelData.maxWaves;
+        progressBar.fillAmount = percent;
         float budget = CalculateBudget(waveNumber);
 
         waveTimer = 0f;
@@ -70,7 +73,7 @@ public class WaveManager : MonoBehaviour
         Debug.Log($"<color=red>Wave {waveNumber} started | Budget: {budget}</color>");
 
         // Sound
-        if ((waveNumber % 10 == 0 || waveNumber == 1) && !isPlaySound)
+        if ((waveNumber % 10 == 0 || waveNumber == 1 || waveNumber == levelData.maxWaves) && !isPlaySound)
         {
             if (SoundManager.instance != null)
             {
@@ -100,7 +103,7 @@ public class WaveManager : MonoBehaviour
         while (remainingBudget > 0)
         {
             // Lọc zombie spawn được
-            List<ZombieCostData> available = zombiePrefabs.FindAll(z => z.cost <= remainingBudget);
+            List<ZombieCostData> available = levelData.zombieTypes.FindAll(z => z.cost <= remainingBudget);
 
             if (available.Count == 0)
                 break;
@@ -146,5 +149,14 @@ public class WaveManager : MonoBehaviour
         {
             lanePool.Add(i);
         }
+    }
+    public bool LevelCompleted()
+    {
+        if (waveNumber > levelData.maxWaves)
+        {
+            Debug.Log("<color=green>Level Completed!</color>");
+            return true;
+        }
+        return false;
     }
 }

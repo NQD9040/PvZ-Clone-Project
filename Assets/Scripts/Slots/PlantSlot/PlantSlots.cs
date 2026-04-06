@@ -8,9 +8,22 @@ public class PlantSlots : MonoBehaviour
     public GameObject selectedPlant;
     public GameObject selectedPlantCard;
     public Image plantFollowImage;
+    private LevelData levelData;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        levelData = LevelManager.Instance.LoadLevel(LevelManager.Instance.currentLevel);
+        foreach (GameObject plantCard in levelData.plantCards)
+        {
+            GameObject card = Instantiate(plantCard, transform);
+            PlantCard plantCardScript = card.GetComponent<PlantCard>();
+            if (plantCardScript != null)
+            {
+                plantCardScript.plantPrefab = plantCard.GetComponent<PlantCard>().plantPrefab;
+                plantCardScript.plantImg = plantCard.GetComponent<PlantCard>().plantImg;
+            }
+            card.transform.SetParent(this.transform);
+        }
         int childCount = plantslot.transform.childCount;
 
         slot = new GameObject[childCount];

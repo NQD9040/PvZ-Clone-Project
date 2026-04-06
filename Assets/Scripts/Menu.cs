@@ -5,6 +5,8 @@ public class Menu : MonoBehaviour
     public GameObject startButton;
     public GameObject moreButton;
     public GameObject quitButton;
+    public GameObject changePlayerButton;
+    public Canvas playerCanvas;
     private GameObject startHover;
     private GameObject moreHover;
     private GameObject quitHover;
@@ -24,6 +26,7 @@ public class Menu : MonoBehaviour
 
     void HoverCheck()
     {
+        if (InputManager.Instance.isBlocked) return;
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Mathf.Abs(Camera.main.transform.position.z);
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -60,6 +63,7 @@ public class Menu : MonoBehaviour
 
     void StartCheck(int sceneId = 1)
     {
+        if (InputManager.Instance.isBlocked) return;
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Input.mousePosition;
@@ -77,6 +81,11 @@ public class Menu : MonoBehaviour
                 else if (col.gameObject == quitButton)
                 {
                     ExitGame();
+                }
+                else if (col.gameObject == changePlayerButton)
+                {
+                    playerCanvas.gameObject.SetActive(true);
+                    InputManager.Instance.isBlocked = true;
                 }
             }
         }

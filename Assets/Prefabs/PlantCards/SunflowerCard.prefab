@@ -245,6 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlantCard
   plantPrefab: {fileID: 6249172302768681620, guid: 92acda2d9a8770e45ba786d2fd5f7b58, type: 3}
   plantImg: {fileID: -2716073802411131826, guid: 2a97d2f919de3d04089b9b377d9b2246, type: 3}
+  isStartCooldown: 0
 --- !u!61 &5060076422046842470
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -462,7 +463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -43}
   m_SizeDelta: {x: 64.3, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3220053898812368941
@@ -493,13 +494,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 2900045581552041026, guid: 84117741c1d677a4ea28a7b6b30819fa, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1

@@ -233,7 +233,6 @@ public class Zombie : MonoBehaviour
     {
         currentState = State.Dead;
 
-        gameManager.IncrementZombiesKilled();
         Destroy(gameObject);
     }
 
