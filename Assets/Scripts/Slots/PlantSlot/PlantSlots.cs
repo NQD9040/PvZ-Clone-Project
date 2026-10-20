@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 public class PlantSlots : MonoBehaviour
@@ -9,36 +10,54 @@ public class PlantSlots : MonoBehaviour
     public GameObject selectedPlantCard;
     public Image plantFollowImage;
     private LevelData levelData;
+    private GameManager gameManager;
+    private Camera mainCamera;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    IEnumerator Start()
     {
+        // Wait for the pre-game chooser to confirm before creating any plant cards.
+        while (LevelManager.Instance == null ||
+               !PlantSelectionSession.IsConfirmedFor(LevelManager.Instance.currentLevel))
+            yield return null;
+
+        gameManager = FindAnyObjectByType<GameManager>();
+        mainCamera = Camera.main;
+        if (LevelManager.Instance == null)
+        {
+            Debug.LogError("LevelManager is missing; plant cards cannot be loaded.", this);
+            yield break;
+        }
         levelData = LevelManager.Instance.LoadLevel(LevelManager.Instance.currentLevel);
-        foreach (GameObject plantCard in levelData.plantCards)
+        if (levelData == null || levelData.plantCards == null)
         {
-            GameObject card = Instantiate(plantCard, transform);
-            PlantCard plantCardScript = card.GetComponent<PlantCard>();
-            if (plantCardScript != null)
-            {
-                plantCardScript.plantPrefab = plantCard.GetComponent<PlantCard>().plantPrefab;
-                plantCardScript.plantImg = plantCard.GetComponent<PlantCard>().plantImg;
-            }
-            card.transform.SetParent(this.transform);
+            Debug.LogError("Plant card data is missing for the current level.", this);
+            yield break;
         }
-        int childCount = plantslot.transform.childCount;
-
-        slot = new GameObject[childCount];
-
-        for(int i = 0; i < childCount; i++)
+        // Compatibility path for scenes where the pregame controller is disabled or absent.
+        if (transform.childCount == 0)
         {
-            slot[i] = plantslot.transform.GetChild(i).gameObject;
+            foreach (GameObject plantCard in PlantSelectionSession.GetSelectedCards(levelData.levelNumber))
+                if (plantCard != null) Instantiate(plantCard, transform, false);
         }
-        plantFollowImage.gameObject.SetActive(false);
+        // PlantSelectionController has already moved the chosen card instances into this grid.
+        RefreshSlotReferences();
+        if (plantFollowImage != null) plantFollowImage.gameObject.SetActive(false);
     }
+
+    public void RefreshSlotReferences()
+    {
+        int childCount = transform.childCount;
+        slot = new GameObject[childCount];
+        for (int i = 0; i < childCount; i++)
+            slot[i] = transform.GetChild(i).gameObject;
+    }
+
     public void GetSelectedPlant(GameObject plant, GameObject plantCard)
     {
         if (plant != null)
         {
-            float sunAmount = FindAnyObjectByType<GameManager>().sunAmount;
+            if (gameManager == null) return;
+            float sunAmount = gameManager.sunAmount;
             float plantCost = plant.GetComponent<Plant>().GetCost();
             if (plantCost > sunAmount)
             {
@@ -55,22 +74,23 @@ public class PlantSlots : MonoBehaviour
     }
     void Update()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (mainCamera == null || plantFollowImage == null || !plantFollowImage.gameObject.activeSelf) return;
+        Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0f;
 
         plantFollowImage.transform.position = mousePos;
     }
     public void GetImg(Sprite img)
     {
-        plantFollowImage.sprite = img;
+        if (plantFollowImage != null) plantFollowImage.sprite = img;
     }
     public void DisableFollowImage()
     {
-        plantFollowImage.gameObject.SetActive(false);
+        if (plantFollowImage != null) plantFollowImage.gameObject.SetActive(false);
     }
     public void EnableFollowImage()
     {
-        plantFollowImage.gameObject.SetActive(true);
+        if (plantFollowImage != null) plantFollowImage.gameObject.SetActive(true);
     }
     public float GetSelectedPlantCost()
     {

@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject menuButton;
     [SerializeField] private TextMeshProUGUI sunText;
     [SerializeField] private TextMeshProUGUI currentLevelText;
+    private bool healthBarsVisible = true;
+    private TextMeshProUGUI healthBarToggleLabel;
+    private bool gameplayStarted;
 
     [Header("Sun Spawn")]
     [SerializeField] private float sunSpawnDelay = 5f;
@@ -53,12 +56,24 @@ public class GameManager : MonoBehaviour
         }
         LevelManager.Instance.currentLevel = player.ProgressLevel;
         Time.timeScale = 1f;
+        if (InputManager.Instance != null)
+            InputManager.Instance.isBlocked = true;
+        PlantSelectionSession.Clear();
+        // Keep the world-space HUD at its scene order so collectible sprites remain visible.
+        canvas.overrideSorting = false;
+        canvas.sortingOrder = 0;
         canvas.gameObject.SetActive(true);
+        ConfigureMenuSorting();
+        healthBarsVisible = true;
+        WorldHealthBar.SetAllVisible(true);
+        CreateHealthBarToggleButton();
 
         UpdateSunUI();
         UpdateCurrentLevelUI();
 
-        SpawnSun();
+        PlantSelectionController selectionController = canvas.GetComponent<PlantSelectionController>();
+        if (selectionController == null || !selectionController.isActiveAndEnabled)
+            StartWithoutPlantSelection();
 
         SoundManager.instance.StopMusic();
         SoundManager.instance.PlayMusic(SoundManager.instance.bgMusic);
@@ -70,6 +85,7 @@ public class GameManager : MonoBehaviour
 
     void HandleSunSpawn()
     {
+        if (InputManager.Instance != null && InputManager.Instance.isBlocked) return;
         sunTimer += Time.deltaTime;
 
         if (sunTimer >= sunSpawnDelay)
@@ -81,6 +97,8 @@ public class GameManager : MonoBehaviour
 
     void HandleInput()
     {
+        if (InputManager.Instance != null && InputManager.Instance.isBlocked &&
+            !InputManager.Instance.isComplete) return;
         if (Input.GetKeyDown(KeyCode.Escape) && !InputManager.Instance.isComplete)
         {
             ToggleMenu();
@@ -131,6 +149,27 @@ public class GameManager : MonoBehaviour
         ResourcePool.Instance.GetResource(DropResource.ResourceType.Sun, spawnPos);
     }
 
+    public void BeginGameplay()
+    {
+        if (gameplayStarted) return;
+        gameplayStarted = true;
+        sunTimer = 0f;
+        if (InputManager.Instance != null)
+            InputManager.Instance.isBlocked = false;
+        SpawnSun();
+    }
+
+    private void StartWithoutPlantSelection()
+    {
+        LevelData currentLevelData = LevelManager.Instance.LoadLevel(LevelManager.Instance.currentLevel);
+        if (currentLevelData != null && currentLevelData.plantCards != null)
+            PlantSelectionSession.SetSelection(currentLevelData.levelNumber, currentLevelData.plantCards);
+
+        BeginGameplay();
+        WaveManager waveManager = FindAnyObjectByType<WaveManager>();
+        if (waveManager != null) waveManager.BeginGameplay();
+    }
+
     #endregion
 
     #region Zombie
@@ -171,10 +210,87 @@ public class GameManager : MonoBehaviour
     }
     public void CompleteLevel()
     {
+        WorldHealthBar.SetAllVisible(false);
+        healthBarsVisible = false;
+        UpdateHealthBarToggleLabel();
+        if (completeLevelCanvas != null)
+        {
+            completeLevelCanvas.overrideSorting = true;
+            completeLevelCanvas.sortingOrder = 100;
+        }
         completeLevelCanvas.gameObject.SetActive(true);
         SoundManager.instance.StopMusic();
         Time.timeScale = 0f;
         InputManager.Instance.isComplete = true;
+    }
+
+    private void CreateHealthBarToggleButton()
+    {
+        if (canvas == null || healthBarToggleLabel != null) return;
+
+        GameObject buttonObject = new GameObject(
+            "HealthBarToggleButton",
+            typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button),
+            typeof(Canvas), typeof(GraphicRaycaster));
+        buttonObject.layer = canvas.gameObject.layer;
+        RectTransform buttonRect = buttonObject.GetComponent<RectTransform>();
+        buttonRect.SetParent(canvas.transform, false);
+        Canvas buttonCanvas = buttonObject.GetComponent<Canvas>();
+        buttonCanvas.overrideSorting = true;
+        buttonCanvas.sortingOrder = 30;
+        buttonRect.anchorMin = new Vector2(0.5f, 0.5f);
+        buttonRect.anchorMax = new Vector2(0.5f, 0.5f);
+        buttonRect.pivot = new Vector2(0.5f, 0.5f);
+        buttonRect.anchoredPosition = new Vector2(738f, 365f);
+        buttonRect.sizeDelta = new Vector2(220f, 68f);
+
+        Image background = buttonObject.GetComponent<Image>();
+        background.color = new Color(0.08f, 0.14f, 0.2f, 0.92f);
+        Button button = buttonObject.GetComponent<Button>();
+        button.targetGraphic = background;
+        button.onClick.AddListener(ToggleHealthBars);
+
+        GameObject labelObject = new GameObject(
+            "Label", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+        labelObject.layer = canvas.gameObject.layer;
+        RectTransform labelRect = labelObject.GetComponent<RectTransform>();
+        labelRect.SetParent(buttonObject.transform, false);
+        labelRect.anchorMin = Vector2.zero;
+        labelRect.anchorMax = Vector2.one;
+        labelRect.offsetMin = new Vector2(8f, 4f);
+        labelRect.offsetMax = new Vector2(-8f, -4f);
+
+        healthBarToggleLabel = labelObject.GetComponent<TextMeshProUGUI>();
+        if (currentLevelText != null) healthBarToggleLabel.font = currentLevelText.font;
+        healthBarToggleLabel.fontSize = 25f;
+        healthBarToggleLabel.alignment = TextAlignmentOptions.Center;
+        healthBarToggleLabel.color = Color.white;
+        healthBarToggleLabel.raycastTarget = false;
+        UpdateHealthBarToggleLabel();
+    }
+
+    private void ConfigureMenuSorting()
+    {
+        if (menuButton == null) return;
+
+        Canvas menuCanvas = menuButton.GetComponent<Canvas>();
+        if (menuCanvas == null) menuCanvas = menuButton.AddComponent<Canvas>();
+        menuCanvas.overrideSorting = true;
+        menuCanvas.sortingOrder = 30;
+    }
+
+    private void ToggleHealthBars()
+    {
+        if (InputManager.Instance != null && InputManager.Instance.isComplete) return;
+        healthBarsVisible = !healthBarsVisible;
+        WorldHealthBar.SetAllVisible(healthBarsVisible);
+        UpdateHealthBarToggleLabel();
+    }
+
+    private void UpdateHealthBarToggleLabel()
+    {
+        if (healthBarToggleLabel != null)
+            healthBarToggleLabel.text = healthBarsVisible ? "HP: ON" : "HP: OFF";
     }
     public void NextLevel()
     {

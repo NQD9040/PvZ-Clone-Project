@@ -38,7 +38,10 @@ public class StraightProjectile : MonoBehaviour
 
         if (lifeTimer >= lifeTime)
         {
-            ProjectilePool.Instance.ReturnResource(gameObject, projectileType.ToString());
+            if (ProjectilePool.Instance != null)
+                ProjectilePool.Instance.ReturnResource(gameObject, projectileType.ToString());
+            else
+                gameObject.SetActive(false);
         }
     }
 
@@ -62,17 +65,20 @@ public class StraightProjectile : MonoBehaviour
             switch (zombie.GetShieldStatus())
             {
                 case "None":
-                    SoundManager.instance.PlaySound(SoundManager.instance.normalHit);
+            SoundManager.instance?.PlaySound(SoundManager.instance.normalHit);
                     break;
                 case "Conehead":
-                    SoundManager.instance.PlaySound(SoundManager.instance.coneHeadHit);
+                    SoundManager.instance?.PlaySound(SoundManager.instance.coneHeadHit);
                     break;
                 case "Buckethead":
-                    SoundManager.instance.PlaySound(SoundManager.instance.bucketHeadHit);
+                    SoundManager.instance?.PlaySound(SoundManager.instance.bucketHeadHit);
                     break;
             }
 
-            ProjectilePool.Instance.ReturnResource(gameObject, projectileType.ToString());
+            if (ProjectilePool.Instance != null)
+                ProjectilePool.Instance.ReturnResource(gameObject, projectileType.ToString());
+            else
+                gameObject.SetActive(false);
         }
     }
 }

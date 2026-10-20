@@ -5,45 +5,61 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
     public LevelData[] levels;
     public int currentLevel;
+
     private WaveManager waveManager;
     private GameManager gameManager;
-    void Awake()
+    private bool completionHandled;
+
+    private void Awake()
     {
         Instance = this;
     }
-    void Start()
+
+    private void Start()
     {
         waveManager = FindAnyObjectByType<WaveManager>();
         gameManager = FindAnyObjectByType<GameManager>();
-        if (levels.Length > 0)
-        {
-            LoadLevel(currentLevel);
-        }
+
+        if (waveManager == null)
+            Debug.LogError("WaveManager is missing from the level scene.", this);
+        else
+            waveManager.LevelCompleted += HandleLevelCompleted;
+
+        if (levels == null || levels.Length == 0)
+            Debug.LogError("No levels are configured on LevelManager.", this);
     }
-    void Update()
+
+    private void OnDestroy()
     {
-        if (waveManager.LevelCompleted())
-        {
-            NextLevel();
-        }
+        if (waveManager != null)
+            waveManager.LevelCompleted -= HandleLevelCompleted;
+        if (Instance == this) Instance = null;
     }
-    void NextLevel()
+
+    private void HandleLevelCompleted()
     {
+        if (completionHandled) return;
+        completionHandled = true;
         currentLevel++;
-        if (currentLevel > levels.Length)
+
+        if (levels == null || currentLevel > levels.Length)
         {
             Debug.Log("All levels completed!");
             return;
         }
-        gameManager.CompleteLevel();
+
+        if (gameManager != null)
+            gameManager.CompleteLevel();
+        else
+            Debug.LogError("GameManager is missing; cannot show level completion UI.", this);
     }
+
     public LevelData LoadLevel(int level)
     {
-        if (level >= 1 && level <= levels.Length)
-        {
+        if (levels != null && level >= 1 && level <= levels.Length)
             return levels[level - 1];
-        }
-        Debug.LogError("Invalid level number");
+
+        Debug.LogError($"Invalid level number: {level}", this);
         return null;
     }
 }

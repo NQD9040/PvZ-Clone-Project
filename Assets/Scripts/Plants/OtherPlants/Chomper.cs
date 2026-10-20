@@ -81,6 +81,7 @@ public class Chomper : Plant
             {
                 health = maxHealthCanObtain;
             }
+            UpdateHealthBar();
             currentTarget.TakeDamage(99999);
             // 20% chance to instantly kill even unchompable zombies
             if (Random.value > instantlyKillChances)

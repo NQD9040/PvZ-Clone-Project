@@ -2,16 +2,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Text;
+using System.Globalization;
 
 public class PlayerDataService
 {
+    private static readonly char[] CsvSpecialCharacters = { ',', '"', '\r', '\n' };
     private string filePath;
 
-    public PlayerDataService()
+    // Resolve the path on first use. This service is also created by MonoBehaviour
+    // field initializers, where Unity APIs such as persistentDataPath are unavailable.
+    private string FilePath
     {
+        get
+        {
 #if !UNITY_WEBGL
-        filePath = Path.Combine(Application.persistentDataPath, "PlayerInformation.csv");
+            if (string.IsNullOrEmpty(filePath))
+                filePath = Path.Combine(Application.persistentDataPath, "PlayerInformation.csv");
 #endif
+            return filePath;
+        }
     }
 
     // ================= SAVE =================
@@ -30,15 +39,15 @@ public class PlayerDataService
         List<string> lines = new List<string>();
 
         // dòng selected
-        lines.Add("SELECTED," + (selectedPlayerName ?? "null"));
+        lines.Add("SELECTED," + EscapeCsv(selectedPlayerName ?? "null"));
 
         foreach (var p in players)
         {
             // name,score,level
-            lines.Add($"{p.PlayerName},{p.Score},{p.ProgressLevel}");
+            lines.Add($"{EscapeCsv(p.PlayerName)},{p.Score.ToString(CultureInfo.InvariantCulture)},{p.ProgressLevel}");
         }
 
-        File.WriteAllLines(filePath, lines, Encoding.UTF8);
+        File.WriteAllLines(FilePath, lines, Encoding.UTF8);
     }
 
     // ---------- WEB ----------
@@ -81,9 +90,9 @@ public class PlayerDataService
         selectedName = null;
         players.Clear();
 
-        if (!File.Exists(filePath)) return;
+        if (!File.Exists(FilePath)) return;
 
-        string[] lines = File.ReadAllLines(filePath, Encoding.UTF8);
+        string[] lines = File.ReadAllLines(FilePath, Encoding.UTF8);
 
         foreach (var line in lines)
         {
@@ -92,7 +101,7 @@ public class PlayerDataService
             // xử lý selected
             if (line.StartsWith("SELECTED,"))
             {
-                var parts = line.Split(',');
+                var parts = ParseCsvLine(line);
                 if (parts.Length > 1 && parts[1] != "null")
                     selectedName = parts[1];
 
@@ -100,11 +109,14 @@ public class PlayerDataService
             }
 
             // parse player
-            string[] data = line.Split(',');
+            string[] data = ParseCsvLine(line);
+            if (data.Length == 0 || string.IsNullOrWhiteSpace(data[0])) continue;
 
             string name = data[0];
-            float score = data.Length > 1 ? float.Parse(data[1]) : 0f;
-            int level = data.Length > 2 ? int.Parse(data[2]) : 1;
+            float score = data.Length > 1 && float.TryParse(data[1], NumberStyles.Float, CultureInfo.InvariantCulture, out float parsedScore)
+                ? parsedScore : 0f;
+            int level = data.Length > 2 && int.TryParse(data[2], out int parsedLevel)
+                ? parsedLevel : 1;
 
             CreatePlayer(name, score, level, players, onCreateUI);
         }
@@ -123,6 +135,7 @@ public class PlayerDataService
         if (string.IsNullOrEmpty(json)) return;
 
         PlayerListWrapper wrapper = JsonUtility.FromJson<PlayerListWrapper>(json);
+        if (wrapper == null || wrapper.players == null) return;
 
         foreach (var data in wrapper.players)
         {
@@ -152,14 +165,14 @@ public class PlayerDataService
     #if UNITY_WEBGL
         selectedName = PlayerPrefs.GetString("selectedPlayer", "");
     #else
-        if (!File.Exists(filePath)) return null;
+        if (!File.Exists(FilePath)) return null;
 
-        using (StreamReader reader = new StreamReader(filePath))
+        using (StreamReader reader = new StreamReader(FilePath))
         {
             string firstLine = reader.ReadLine();
             if (firstLine != null && firstLine.StartsWith("SELECTED,"))
             {
-                var parts = firstLine.Split(',');
+                var parts = ParseCsvLine(firstLine);
                 if (parts.Length > 1 && parts[1] != "null")
                     selectedName = parts[1];
             }
@@ -170,5 +183,41 @@ public class PlayerDataService
 
         // Tìm thằng có tên trùng với selectedName trong list truyền vào
         return players.Find(p => p.PlayerName == selectedName);
+    }
+
+    private static string EscapeCsv(string value)
+    {
+        if (value.IndexOfAny(CsvSpecialCharacters) < 0) return value;
+        return "\"" + value.Replace("\"", "\"\"") + "\"";
+    }
+
+    private static string[] ParseCsvLine(string line)
+    {
+        List<string> fields = new List<string>();
+        StringBuilder field = new StringBuilder();
+        bool inQuotes = false;
+
+        for (int i = 0; i < line.Length; i++)
+        {
+            char current = line[i];
+            if (current == '"')
+            {
+                if (inQuotes && i + 1 < line.Length && line[i + 1] == '"')
+                {
+                    field.Append('"');
+                    i++;
+                }
+                else inQuotes = !inQuotes;
+            }
+            else if (current == ',' && !inQuotes)
+            {
+                fields.Add(field.ToString());
+                field.Clear();
+            }
+            else field.Append(current);
+        }
+
+        fields.Add(field.ToString());
+        return fields.ToArray();
     }
 }

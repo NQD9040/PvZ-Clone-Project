@@ -36,5 +36,6 @@ public class DefensePlant : Plant
         {
             health = data.maxHealth;
         }
+        UpdateHealthBar();
     }
 }
