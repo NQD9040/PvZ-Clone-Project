@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
+[Serializable]
 public class ZombieCostData
 {
     public GameObject prefab;
@@ -14,113 +15,152 @@ public class WaveManager : MonoBehaviour
 {
     [Header("Level Data")]
     private LevelData levelData;
+
     [Header("Wave Settings")]
     public float basePointValue = 20f;
     public float increment = 10f;
     public float flagMultiplier = 2.5f;
     public int flagInterval = 10;
-
     public float startDelay = 30f;
     public float maxWaveTime = 45f;
     public float spawnInterval = 1.5f;
-
     public float[] yColumnSpawn = new float[5] { 2.2f, 0.6f, -1.0f, -2.6f, -4.2f };
-
-    private int waveNumber = 0;
-    private float waveTimer = 0f;
-    private bool isSpawning = false;
-    private bool waveInProgress = false;
-    private bool isPlaySound = false;
     public Image progressBar;
-    private List<int> lanePool = new List<int>();
 
-    void Start()
+    private int waveNumber;
+    private float waveTimer;
+    private bool isSpawning;
+    private bool waveInProgress;
+    private bool levelCompleted;
+    private bool gameplayRequested;
+    private bool gameplayStarted;
+    private ZombiePool zombiePool;
+    private readonly List<int> lanePool = new List<int>();
+    private readonly List<ZombieCostData> availableZombies = new List<ZombieCostData>();
+
+    public event Action LevelCompleted;
+
+    private IEnumerator Start()
     {
+        // GameManager assigns the selected player's level from Start.
+        yield return null;
+
+        if (LevelManager.Instance == null)
+        {
+            Debug.LogError("LevelManager is missing; waves cannot start.", this);
+            enabled = false;
+            yield break;
+        }
+
         levelData = LevelManager.Instance.LoadLevel(LevelManager.Instance.currentLevel);
-        Debug.Log($"Game started! You have {startDelay} seconds to prepare.");
-        Invoke(nameof(StartNextWave), startDelay);
+        if (levelData == null || levelData.maxWaves <= 0)
+        {
+            Debug.LogError("Current level has no valid wave data.", this);
+            enabled = false;
+            yield break;
+        }
+
+        zombiePool = ZombiePool.Instance;
+        if (zombiePool == null)
+            zombiePool = new GameObject("ZombiePool").AddComponent<ZombiePool>();
+        zombiePool.Prewarm(levelData.zombieTypes, 3);
+
+        Debug.Log("Wave data is ready; waiting for plant selection confirmation.");
+        TryStartGameplay();
     }
 
-    void Update()
+    public void BeginGameplay()
     {
-        if (!waveInProgress || isSpawning) return;
+        if (gameplayStarted || levelCompleted) return;
+        gameplayRequested = true;
+        TryStartGameplay();
+    }
+
+    private void TryStartGameplay()
+    {
+        if (!gameplayRequested || gameplayStarted || levelCompleted || levelData == null) return;
+        gameplayStarted = true;
+        Debug.Log($"Game started! You have {startDelay} seconds to prepare.");
+        Invoke(nameof(StartNextWave), Mathf.Max(0f, startDelay));
+    }
+
+    private void Update()
+    {
+        if (!waveInProgress || isSpawning || levelCompleted) return;
 
         waveTimer += Time.deltaTime;
-
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Zombie");
         bool timerExpired = waveTimer >= maxWaveTime;
-        bool allEnemiesDefeated = enemies.Length == 0;
+        bool allEnemiesDefeated = zombiePool == null || zombiePool.ActiveZombieCount == 0;
 
         if (timerExpired || allEnemiesDefeated)
         {
-            waveInProgress = false;
-            Debug.Log(timerExpired ? "Time's up! Next wave." : "All enemies defeated! Next wave.");
-            Invoke(nameof(StartNextWave), 5f);
+            Debug.Log(timerExpired ? "Time's up! Wave ended." : "All enemies defeated! Wave ended.");
+            FinishWave();
         }
     }
 
-    void StartNextWave()
+    private void StartNextWave()
     {
-        waveNumber++;
-        float percent = (float)waveNumber / levelData.maxWaves;
-        progressBar.fillAmount = percent;
-        float budget = CalculateBudget(waveNumber);
-
-        waveTimer = 0f;
-        waveInProgress = true;
-        isPlaySound = false;
-
-        Debug.Log($"<color=red>Wave {waveNumber} started | Budget: {budget}</color>");
-
-        // Sound
-        if ((waveNumber % 10 == 0 || waveNumber == 1 || waveNumber == levelData.maxWaves) && !isPlaySound)
+        if (levelCompleted || levelData == null) return;
+        if (waveNumber >= levelData.maxWaves)
         {
-            if (SoundManager.instance != null)
-            {
-                SoundManager.instance.PlaySound(SoundManager.instance.firstWaveSound);
-            }
-            isPlaySound = true;
+            CompleteLevel();
+            return;
         }
 
-        // Difficulty scaling
+        waveNumber++;
+        if (progressBar != null)
+            progressBar.fillAmount = (float)waveNumber / levelData.maxWaves;
+
+        float budget = CalculateBudget(waveNumber);
+        waveTimer = 0f;
+        waveInProgress = true;
+        Debug.Log($"Wave {waveNumber} started | Budget: {budget}");
+
+        if (waveNumber % 10 == 0 || waveNumber == 1 || waveNumber == levelData.maxWaves)
+        {
+            if (SoundManager.instance != null)
+                SoundManager.instance.PlaySound(SoundManager.instance.firstWaveSound);
+        }
+
         if (waveNumber % 5 == 0 && waveNumber != 1)
         {
             spawnInterval = Mathf.Max(0.3f, spawnInterval - 0.2f);
             maxWaveTime = Mathf.Max(10f, maxWaveTime - 5f);
             increment += 5f;
-
-            Debug.Log($"<color=yellow>Difficulty increased! Spawn Interval: {spawnInterval}s | Max Wave Time: {maxWaveTime}s | Budget Increment: {increment}</color>");
         }
 
         StartCoroutine(SpawnWave(budget));
     }
 
-    IEnumerator SpawnWave(float currentBudget)
+    private IEnumerator SpawnWave(float currentBudget)
     {
         isSpawning = true;
         float remainingBudget = currentBudget;
 
-        while (remainingBudget > 0)
+        while (remainingBudget > 0f)
         {
-            // Lọc zombie spawn được
-            List<ZombieCostData> available = levelData.zombieTypes.FindAll(z => z.cost <= remainingBudget);
+            availableZombies.Clear();
+            if (levelData.zombieTypes != null)
+            {
+                foreach (ZombieCostData zombie in levelData.zombieTypes)
+                {
+                    if (zombie != null && zombie.prefab != null && zombie.cost > 0 && zombie.cost <= remainingBudget)
+                        availableZombies.Add(zombie);
+                }
+            }
 
-            if (available.Count == 0)
+            if (availableZombies.Count == 0 || yColumnSpawn == null || yColumnSpawn.Length == 0)
                 break;
 
-            ZombieCostData chosen = available[Random.Range(0, available.Count)];
-
-            // Lane random không bị trùng liên tục
-            if (lanePool.Count == 0)
-                ResetLanePool();
-
-            int randomIndex = Random.Range(0, lanePool.Count);
+            ZombieCostData chosen = availableZombies[UnityEngine.Random.Range(0, availableZombies.Count)];
+            if (lanePool.Count == 0) ResetLanePool();
+            int randomIndex = UnityEngine.Random.Range(0, lanePool.Count);
             int selectedLane = lanePool[randomIndex];
             lanePool.RemoveAt(randomIndex);
 
             Vector2 spawnPos = new Vector2(9.6f, yColumnSpawn[selectedLane]);
-            Instantiate(chosen.prefab, spawnPos, Quaternion.identity);
-
+            zombiePool.GetZombie(chosen.prefab, spawnPos);
             remainingBudget -= chosen.cost;
 
             yield return new WaitForSeconds(spawnInterval);
@@ -130,33 +170,39 @@ public class WaveManager : MonoBehaviour
         Debug.Log($"Wave {waveNumber} has spawned all enemies.");
     }
 
-    float CalculateBudget(int wave)
+    private void FinishWave()
     {
-        float currentPoints = basePointValue + (wave * increment);
-
-        if (wave % flagInterval == 0)
+        waveInProgress = false;
+        if (waveNumber >= levelData.maxWaves)
         {
-            return currentPoints * flagMultiplier;
+            CompleteLevel();
+            return;
         }
 
-        return currentPoints;
+        Invoke(nameof(StartNextWave), 5f);
     }
 
-    void ResetLanePool()
+    private void CompleteLevel()
+    {
+        if (levelCompleted) return;
+        levelCompleted = true;
+        waveInProgress = false;
+        CancelInvoke(nameof(StartNextWave));
+        Debug.Log("Level completed!");
+        LevelCompleted?.Invoke();
+    }
+
+    private float CalculateBudget(int wave)
+    {
+        float currentPoints = basePointValue + wave * increment;
+        return flagInterval > 0 && wave % flagInterval == 0
+            ? currentPoints * flagMultiplier
+            : currentPoints;
+    }
+
+    private void ResetLanePool()
     {
         lanePool.Clear();
-        for (int i = 0; i < yColumnSpawn.Length; i++)
-        {
-            lanePool.Add(i);
-        }
-    }
-    public bool LevelCompleted()
-    {
-        if (waveNumber > levelData.maxWaves)
-        {
-            Debug.Log("<color=green>Level Completed!</color>");
-            return true;
-        }
-        return false;
+        for (int i = 0; i < yColumnSpawn.Length; i++) lanePool.Add(i);
     }
 }

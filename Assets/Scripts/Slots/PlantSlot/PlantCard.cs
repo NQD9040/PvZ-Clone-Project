@@ -7,6 +7,7 @@ public class PlantCard : MonoBehaviour
     public GameObject plantPrefab;
 
     private PlantSlots plantSlots;
+    private PlantSelectionController selectionController;
     private GameObject selected;
     private GameObject cooldownReducer;
     private Image cooldownImage;
@@ -14,6 +15,9 @@ public class PlantCard : MonoBehaviour
     private TextMeshProUGUI plantCost;
     public Sprite plantImg;
     private GameManager gameManager;
+    private Plant plant;
+    private bool previousCoolingState;
+    private bool hasInitializedCoolingState;
 
     private float cooldownTimer = 0f;
     private float cooldownTime = 0f; // cache cho đỡ GetComponent mỗi frame
@@ -21,6 +25,7 @@ public class PlantCard : MonoBehaviour
     void Start()
     {
         plantSlots = FindAnyObjectByType<PlantSlots>();
+        selectionController = FindAnyObjectByType<PlantSelectionController>();
 
         selected = transform.Find("Selected").gameObject;
         cooldownReducer = transform.Find("CooldownReducer").gameObject;
@@ -32,7 +37,13 @@ public class PlantCard : MonoBehaviour
         plantIcon = transform.Find("PlantIcon").GetComponent<Image>();
         plantCost = transform.Find("PlantCost").GetComponentInChildren<TextMeshProUGUI>();
 
-        Plant plant = plantPrefab.GetComponent<Plant>();
+        plant = plantPrefab != null ? plantPrefab.GetComponent<Plant>() : null;
+        if (plant == null)
+        {
+            Debug.LogError($"PlantCard '{name}' has no Plant prefab/component.", this);
+            enabled = false;
+            return;
+        }
         cooldownTime = plant.data.cooldownTime;
 
         plantIcon.sprite = plantImg;
@@ -42,14 +53,24 @@ public class PlantCard : MonoBehaviour
 
         // reset fill ban đầu
         cooldownImage.fillAmount = 0;
-        if (isStartCooldown)
+        bool isPreGameSelection = selectionController != null && selectionController.IsOpen;
+        if (isStartCooldown && !isPreGameSelection)
         {
             StartCooldown(0.5f);
         }
+        if (selectionController != null && selectionController.IsSelectionCard(transform))
+            SetCooldownReducerVisible(false);
     }
 
     void Update()
     {
+        // Choice cards do not show cooldown or gameplay state in the selection grid.
+        if (selectionController != null && selectionController.IsSelectionCard(transform))
+        {
+            SetCooldownReducerVisible(false);
+            return;
+        }
+
         // giảm cooldown
         if (cooldownTimer > 0)
         {
@@ -57,10 +78,10 @@ public class PlantCard : MonoBehaviour
         }
 
         bool isCoolingDown = cooldownTimer > 0;
-        bool isEnoughSun = gameManager.sunAmount >= plantPrefab.GetComponent<Plant>().data.cost;
+        bool isEnoughSun = gameManager != null && gameManager.sunAmount >= plant.data.cost;
 
         // selected overlay
-        if (plantSlots.selectedPlant == plantPrefab || !isEnoughSun || isCoolingDown)
+        if (plantSlots != null && (plantSlots.selectedPlant == plantPrefab || !isEnoughSun || isCoolingDown))
             SetSelected(true);
         else
             SetSelected(false);
@@ -68,28 +89,32 @@ public class PlantCard : MonoBehaviour
         // ===== COOLDOWN UI =====
         if (isCoolingDown)
         {
-            cooldownReducer.SetActive(true);
+            if (!cooldownReducer.activeSelf) cooldownReducer.SetActive(true);
 
             float percent = cooldownTimer / cooldownTime;
             cooldownImage.fillAmount = percent;
         }
         else
         {
-            cooldownReducer.SetActive(false);
+            if (cooldownReducer.activeSelf) cooldownReducer.SetActive(false);
             cooldownImage.fillAmount = 0;
         }
 
         // ===== optional: làm mờ icon =====
-        plantIcon.color = isCoolingDown 
-            ? new Color(1,1,1,0.5f) 
-            : Color.white;
+        if (!hasInitializedCoolingState || previousCoolingState != isCoolingDown)
+        {
+            plantIcon.color = isCoolingDown ? new Color(1, 1, 1, 0.5f) : Color.white;
+            previousCoolingState = isCoolingDown;
+            hasInitializedCoolingState = true;
+        }
     }
 
     void OnMouseDown()
     {
+        if (selectionController != null && selectionController.IsSelectionCard(transform)) return;
         if (InputManager.Instance.isBlocked || InputManager.Instance.isShovelActive)
             return;
-        Plant plant = plantPrefab.GetComponent<Plant>();
+        if (plant == null || plantSlots == null || gameManager == null) return;
 
         bool isEnoughSun = gameManager.sunAmount >= plant.data.cost;
         bool isCoolingDown = cooldownTimer > 0;
@@ -114,6 +139,19 @@ public class PlantCard : MonoBehaviour
     }
     public void SetSelected(bool isSelected)
     {
-        selected.SetActive(isSelected);
+        if (selected != null && selected.activeSelf != isSelected)
+            selected.SetActive(isSelected);
+    }
+
+    public void SetCooldownReducerVisible(bool visible)
+    {
+        if (cooldownReducer == null)
+        {
+            Transform reducer = transform.Find("CooldownReducer");
+            if (reducer != null) cooldownReducer = reducer.gameObject;
+        }
+
+        if (cooldownReducer != null && cooldownReducer.activeSelf != visible)
+            cooldownReducer.SetActive(visible);
     }
 }

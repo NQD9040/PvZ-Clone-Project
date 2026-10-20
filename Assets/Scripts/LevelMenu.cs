@@ -10,6 +10,7 @@ public class LevelMenu : MonoBehaviour
     private GameObject leaveHitbox;
     private GameObject cancelHitbox;
     private PlantSlots plantSlots;
+    private readonly Collider2D[] clickColliderBuffer = new Collider2D[8];
     void Awake()
     {
         Instance = this;
@@ -34,43 +35,42 @@ public class LevelMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Input.GetMouseButtonDown(0) || Camera.main == null) return;
+
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Mathf.Abs(Camera.main.transform.position.z);
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        int hitCount = Physics2D.OverlapPointNonAlloc(worldPos, clickColliderBuffer);
 
-        if (Input.GetMouseButtonDown(0))
+        for (int i = 0; i < hitCount; i++)
         {
-            Collider2D[] cols = Physics2D.OverlapPointAll(worldPos);
+            Collider2D col = clickColliderBuffer[i];
+            if (col == null) continue;
 
-            foreach (Collider2D col in cols)
+            if (!InputManager.Instance.isLeaving)
             {
-                if (col == null) continue;
-
-                if (!InputManager.Instance.isLeaving)
+                if (col.gameObject == backToGameButton)
                 {
-                    if (col.gameObject == backToGameButton)
-                    {
-                        ToggleMenu();
-                        return;
-                    }
-                    else if (col.gameObject == menuButton)
-                    {
-                        ToogleLeaveBar();
-                        return;
-                    }
+                    ToggleMenu();
+                    return;
                 }
-                else
+                else if (col.gameObject == menuButton)
                 {
-                    if (col.gameObject == leaveHitbox)
-                    {
-                        ChangeScene.Instance.LoadScene(0);
-                        return;
-                    }
-                    else if (col.gameObject == cancelHitbox)
-                    {
-                        ToogleLeaveBar();
-                        return;
-                    }
+                    ToogleLeaveBar();
+                    return;
+                }
+            }
+            else
+            {
+                if (col.gameObject == leaveHitbox)
+                {
+                    ChangeScene.Instance.LoadScene(0);
+                    return;
+                }
+                else if (col.gameObject == cancelHitbox)
+                {
+                    ToogleLeaveBar();
+                    return;
                 }
             }
         }

@@ -16,44 +16,67 @@ public class ProjectilePool : MonoBehaviour
     public List<ProjectileData> projectiles = new List<ProjectileData>();
     public int initialPoolSize = 10;
 
-    void Awake()
+    private readonly Dictionary<string, ProjectileData> projectilesByName = new Dictionary<string, ProjectileData>();
+    private readonly Dictionary<GameObject, ProjectileData> dataByObject = new Dictionary<GameObject, ProjectileData>();
+    private readonly HashSet<GameObject> pooledObjects = new HashSet<GameObject>();
+
+    private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+
+        foreach (ProjectileData data in projectiles)
+        {
+            if (data == null || string.IsNullOrEmpty(data.name) || data.prefab == null) continue;
+            if (projectilesByName.ContainsKey(data.name))
+            {
+                Debug.LogWarning($"Duplicate projectile pool key '{data.name}'.", this);
+                continue;
+            }
+            projectilesByName.Add(data.name, data);
+        }
     }
 
-    void Start()
+    private void Start()
     {
-        foreach (var p in projectiles)
+        foreach (ProjectileData data in projectilesByName.Values)
         {
-            if (p.prefab == null) continue;
-
-            for (int i = 0; i < initialPoolSize; i++)
+            for (int i = 0; i < Mathf.Max(0, initialPoolSize); i++)
             {
-                GameObject obj = Instantiate(p.prefab);
+                GameObject obj = CreateProjectile(data);
+                if (obj == null) break;
                 obj.SetActive(false);
-                p.pool.Enqueue(obj);
+                data.pool.Enqueue(obj);
+                pooledObjects.Add(obj);
             }
         }
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
     public GameObject GetProjectile(string name, Vector2 pos)
     {
-        ProjectileData pData = projectiles.Find(p => p.name == name);
-        if (pData == null || pData.prefab == null)
+        if (!projectilesByName.TryGetValue(name, out ProjectileData data))
         {
-            Debug.LogWarning("Projectile prefab not found for " + name);
+            Debug.LogWarning($"Projectile prefab not found for '{name}'.", this);
             return null;
         }
 
-        GameObject obj;
-        if (pData.pool.Count > 0)
+        GameObject obj = null;
+        while (data.pool.Count > 0 && obj == null)
         {
-            obj = pData.pool.Dequeue();
+            obj = data.pool.Dequeue();
+            pooledObjects.Remove(obj);
         }
-        else
-        {
-            obj = Instantiate(pData.prefab);
-        }
+        if (obj == null) obj = CreateProjectile(data);
+        if (obj == null) return null;
 
         obj.transform.position = pos;
         obj.SetActive(true);
@@ -62,10 +85,29 @@ public class ProjectilePool : MonoBehaviour
 
     public void ReturnResource(GameObject obj, string name)
     {
-        ProjectileData pData = projectiles.Find(p => p.name == name);
-        if (pData == null) return;
+        if (obj == null || pooledObjects.Contains(obj)) return;
+        if (!dataByObject.TryGetValue(obj, out ProjectileData data))
+        {
+            Debug.LogWarning($"Projectile '{obj.name}' is not registered with this pool.", obj);
+            obj.SetActive(false);
+            return;
+        }
 
         obj.SetActive(false);
-        pData.pool.Enqueue(obj);
+        data.pool.Enqueue(obj);
+        pooledObjects.Add(obj);
+    }
+
+    private GameObject CreateProjectile(ProjectileData data)
+    {
+        GameObject obj = Instantiate(data.prefab, transform);
+        if (obj.GetComponent<StraightProjectile>() == null)
+        {
+            Debug.LogError($"Projectile prefab '{data.prefab.name}' has no StraightProjectile component.", data.prefab);
+            Destroy(obj);
+            return null;
+        }
+        dataByObject[obj] = data;
+        return obj;
     }
 }
